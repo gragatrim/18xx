@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent onClick, hexValue }) => {
+const Hex = ({ color, border, transparent, onClick, hexValue }) => {
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
   let stroke = border ? colors["black"] : "none";
   console.log(hexValue);
