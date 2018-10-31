@@ -4,9 +4,10 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent }) => {
+const Hex = ({ color, border, transparent onClick, hexValue }) => {
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
   let stroke = border ? colors["black"] : "none";
+  console.log(hexValue);
 
   return (
     <HexContext.Consumer>
@@ -19,6 +20,8 @@ const Hex = ({ color, border, transparent }) => {
             strokeLinejoin="bevel"
             strokeWidth="2"
             stroke={stroke}
+            hex={hexValue.hexes[0]}
+            onClick={onClick.bind(this, hexValue)}
           />
         </g>
       )}

@@ -26,6 +26,7 @@ import Mountain from "./atoms/Mountain";
 import Tunnel from "./atoms/Tunnel";
 import RouteBonus from "./atoms/RouteBonus";
 import Border from "./atoms/Border";
+import Upgrade from "./Upgrade"
 
 import Token from "./Token";
 
@@ -71,7 +72,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent }) => {
+const HexTile = ({ hex, id, border, transparent, onClick }) => {
   if (hex === undefined || hex === null) {
     return null;
   }
@@ -187,7 +188,7 @@ const HexTile = ({ hex, id, border, transparent }) => {
 
   return (
     <g>
-      <Hex color={hex.color} transparent={transparent} />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} />
 
       <HexContext.Consumer>
         {hx => (
@@ -215,7 +216,7 @@ const HexTile = ({ hex, id, border, transparent }) => {
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} />}
       {outsideCityBorders}
 
       {id && <Id id={idBase} extra={idExtra} />}

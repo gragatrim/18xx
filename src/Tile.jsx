@@ -16,7 +16,7 @@ const Tile = ({ id, border }) => {
     return null;
   }
 
-  return <Hex hex={hex} id={id} border={border} />;
+  return <Hex hex={hex} id={id} border={border} hexValue={hex}/>;
 };
 
 export default Tile;

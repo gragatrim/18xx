@@ -4,7 +4,7 @@ import util from "./util";
 import Hex from "./Hex";
 import { colors } from "./data";
 
-const Map = ({ game, variation }) => {
+const Map = ({ game, variation, onClick }) => {
   variation = variation || 0;
   let map = Array.isArray(game.map) ? game.map[variation] : game.map;
 
@@ -142,7 +142,7 @@ const Map = ({ game, variation }) => {
           transform={`${translate}`}
           key={`hex-${resolvedHex.variation}-${util.toAlpha(y)}${x}`}
         >
-          <Hex hex={resolvedHex} border={true} transparent={game.info.transparent} />
+          <Hex hex={resolvedHex} border={true} transparent={game.info.transparent} onClick={onClick} hexValue={resolvedHex} />
         </g>
       );
     }, R.map(util.toCoords, hex.hexes || []));

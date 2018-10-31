@@ -31,6 +31,7 @@ import StockPaginated from "./StockPaginated";
 import GameMenu from "./GameMenu";
 
 import Footer from "./Footer";
+import Upgrade from "./Upgrade";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -76,6 +77,7 @@ class App extends Component {
             <Route path="/:game/tiles" component={TileSheet} />
             <Route path="/:game/manifest" component={TileManifest} />
             <Route path="/:game/tokens" component={Tokens} />
+            <Route path="/:game/upgrade" component={Upgrade} />
           </Switch>
 
           <Switch>
