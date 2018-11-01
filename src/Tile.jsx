@@ -3,7 +3,7 @@ import tiles from "./data/tiles";
 
 import Hex from "./Hex";
 
-const Tile = ({ id, border }) => {
+const Tile = ({ id, border, transparent, onClick, translateX, translateY }) => {
   let hex = tiles[id];
 
   // If the full id doesn't exist check for only the base
@@ -15,8 +15,7 @@ const Tile = ({ id, border }) => {
   if(!hex) {
     return null;
   }
-
-  return <Hex hex={hex} id={id} border={border} hexValue={hex}/>;
+  return <Hex hex={hex} id={id} border={border} transparent={transparent} translateX={translateX} translateY={translateY} />;
 };
 
 export default Tile;

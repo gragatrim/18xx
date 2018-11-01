@@ -26,7 +26,6 @@ import Mountain from "./atoms/Mountain";
 import Tunnel from "./atoms/Tunnel";
 import RouteBonus from "./atoms/RouteBonus";
 import Border from "./atoms/Border";
-import Upgrade from "./Upgrade"
 
 import Token from "./Token";
 
@@ -72,7 +71,9 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY }) => {
+  translateX = translateX || 0;
+  translateY = translateY || 0;
   if (hex === undefined || hex === null) {
     return null;
   }
@@ -167,7 +168,7 @@ const HexTile = ({ hex, id, border, transparent, onClick }) => {
   );
 
   let borders = (
-    <Position data={hex.borders}>{b => <Border {...b} />}</Position>
+    <Position data={hex.borders} >{b => <Border {...b} />}</Position>
   );
 
   let values = <Position data={hex.values}>{v => <Value {...v} />}</Position>;
@@ -188,11 +189,11 @@ const HexTile = ({ hex, id, border, transparent, onClick }) => {
 
   return (
     <g>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY}  />
 
       <HexContext.Consumer>
         {hx => (
-          <g clipPath="url(#hexClip)" transform={`rotate(${hx.rotation || 0})`}>
+          <g clipPath="url(#hexClip)" transform={`rotate(${hx.rotation || 0}) translate(${translateX}, ${translateY})`}>
             <g transform={`rotate(-${hx.rotation})`}>
               {icons}
               {water}
@@ -216,10 +217,10 @@ const HexTile = ({ hex, id, border, transparent, onClick }) => {
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} />}
       {outsideCityBorders}
 
-      {id && <Id id={idBase} extra={idExtra} />}
+      {id && <Id id={idBase} extra={idExtra} translateX={translateX} translateY={translateY} />}
 
       {outsideCities}
       {offBoardRevenue}

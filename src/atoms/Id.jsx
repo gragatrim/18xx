@@ -3,12 +3,14 @@ import { colors } from "../data";
 
 import HexContext from "../context/HexContext";
 
-const Id = ({ id, extra }) => {
+const Id = ({ id, extra, translateX, translateY }) => {
+  translateX = (translateX - 40) || -40;
+  translateY = (translateY + 70) || 70;
   return (
     <HexContext.Consumer>
       {hx => (
         <React.Fragment>
-          <g transform={`rotate(${hx.rotation}) translate(-40 70)`}>
+          <g transform={`rotate(${hx.rotation}) translate(${translateX} ${translateY})`}>
             <text
               fontFamily="Helvetica, Arial, sans-serif"
               fill={colors["text"]}

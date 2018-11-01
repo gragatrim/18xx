@@ -8,7 +8,7 @@ import util from "./util";
 import * as R from "ramda";
 import { NavLink, Redirect } from "react-router-dom";
 
-const MapSingle = ({ match, onClick }) => {
+const MapSingle = ({ match, onClick, hexOverlay }) => {
   let game = games[match.params.game];
 
   if (match.params.variation && !Array.isArray(game.map)) {
@@ -55,6 +55,7 @@ const MapSingle = ({ match, onClick }) => {
         <Svg width={totalWidth} height={totalHeight}>
           <Title game={game} variation={variation} />
           <Map game={game} variation={variation} onClick={onClick} />
+          {hexOverlay && hexOverlay}
         </Svg>
         <div className="PrintNotes">
           This map is meant to be printed in <b>{map.print || "portrait"}</b>{" "}

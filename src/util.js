@@ -200,6 +200,59 @@ const pages = (total, page) => {
   return helper(total, page, []);
 };
 
+const getCoords = (game, variation) => {
+    variation = variation || 0;
+    let map = Array.isArray(game.map) ? game.map[variation] : game.map;
+
+    if (!map) {
+      return null;
+    }
+
+    let hexWidth = game.info.width;
+    let edge = hexWidth * HEX_RATIO;
+    let halfHexWidth = 0.5 * hexWidth;
+
+    let hexX = (x, y) => {
+      return x * halfHexWidth;
+    };
+
+    let hexY = (x, y) => {
+      return (y - 1) * 1.5 * edge + edge;
+    };
+
+    let hexes = R.map(R.assoc("variation", variation), map.hexes);
+    if (map.copy !== undefined) {
+      hexes = R.concat(
+        R.map(R.assoc("variation", map.copy), game.map[map.copy].hexes),
+        hexes
+      );
+    }
+    let maxX = maxMapX(hexes);
+    let maxY = maxMapY(hexes);
+
+    let totalWidth =
+      (game.info.extraTotalWidth || 0) + 100 + halfHexWidth * (maxX + 1);
+    let totalHeight =
+      (game.info.extraTotalHeight || 0) +
+      100 +
+      (1.5 * (maxY - 1) * edge + 2 * edge);
+
+    if (game.info.orientation === "horizontal") {
+      let tmp = totalWidth;
+      totalWidth = totalHeight;
+      totalHeight = tmp;
+    }
+
+   //   );
+    let xAlpha = R.chain( x => [ (game.info.orientation === "horizontal" ? toAlpha(x) : x) ], R.range(1, (game.info.orientation === "horizontal" ? maxY : maxX) + 1))
+    let xValue = R.chain( x => [ (game.info.orientation === "horizontal" ? hexY(0, x) : hexX(x, 0)) + 50 ], R.range(1, (game.info.orientation === "horizontal" ? maxY : maxX) + 1));
+    let yAlpha = R.chain( y => [ (game.info.orientation === "horizontal" ? y : toAlpha(y)) ], R.range(1, (game.info.orientation === "horizontal" ? maxX : maxY) + 1))
+    let yValue = R.chain( y => [ (game.info.orientation !== "horizontal" ? hexY(0, y) : hexX(y, 0)) + 50 ], R.range(1, (game.info.orientation === "horizontal" ? maxX : maxY) + 1));
+    let xCoords = R.zipObj(xAlpha, xValue);
+    let yCoords = R.zipObj(yAlpha, yValue);
+    return { x: xCoords, y: yCoords};
+  }
+
 export default {
   groupsOf,
   HEX_RATIO,
@@ -216,5 +269,6 @@ export default {
   toCoords,
   mergeHex,
   resolveHex,
-  pages
+  pages,
+  getCoords
 };
