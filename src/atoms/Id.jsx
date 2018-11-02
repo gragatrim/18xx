@@ -3,7 +3,7 @@ import { colors } from "../data";
 
 import HexContext from "../context/HexContext";
 
-const Id = ({ id, extra, translateX, translateY }) => {
+const Id = ({ id, extra, onClick, translateX, translateY }) => {
   translateX = (translateX - 40) || -40;
   translateY = (translateY + 70) || 70;
   return (
@@ -20,6 +20,7 @@ const Id = ({ id, extra, translateX, translateY }) => {
               alignmentBaseline="baseline"
               textAnchor="start"
               fontSize="12"
+              onClick={onClick && onClick}
               x="0"
               y="0"
             >
@@ -37,6 +38,7 @@ const Id = ({ id, extra, translateX, translateY }) => {
                 alignmentBaseline="baseline"
                 textAnchor="end"
                 fontSize="12"
+                onClick={onClick && onClick}
                 x="0"
                 y="0"
               >

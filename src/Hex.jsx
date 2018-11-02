@@ -220,7 +220,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
       {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} />}
       {outsideCityBorders}
 
-      {id && <Id id={idBase} extra={idExtra} translateX={translateX} translateY={translateY} />}
+      {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} />}
 
       {outsideCities}
       {offBoardRevenue}

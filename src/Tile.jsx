@@ -1,21 +1,22 @@
 import React from "react";
 import tiles from "./data/tiles";
+import * as R from "ramda";
 
 import Hex from "./Hex";
 
-const Tile = ({ id, border, transparent, onClick, translateX, translateY }) => {
-  let hex = tiles[id];
-
+const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex }) => {
+  let newHex = tiles[id];
   // If the full id doesn't exist check for only the base
-  if (!hex) {
+  if (!newHex) {
     let [idBase] = id.split("|");
-    hex = tiles[idBase];
+    newHex = tiles[idBase];
   }
 
-  if(!hex) {
+  if(!newHex && !hex) {
     return null;
   }
-  return <Hex hex={hex} id={id} border={border} transparent={transparent} translateX={translateX} translateY={translateY} />;
+  let finalHex = R.merge(hex, newHex);
+  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} />;
 };
 
 export default Tile;

@@ -584,6 +584,7 @@ const game = {
             companies: [{ label: "OST", color: "blue" }]
           }
         ],
+        upgradesTo: ["57"],
         hexes: ["B9"]
       },
       {
@@ -1171,6 +1172,7 @@ const game = {
       },
       {
         color: "plain",
+        upgradesTo: ["7", "8", "9"],
         hexes: [
           "B7",
           "B11",

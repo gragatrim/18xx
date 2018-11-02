@@ -156,6 +156,7 @@ const tiles = {
   },
   "7": {
     color: "yellow",
+    upgradesTo: ["18", "26", "27", "28", "29"],
     track: [
       {
         type: "sharp",

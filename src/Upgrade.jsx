@@ -21,7 +21,9 @@ class Upgrade extends React.Component {
     //The else here means we're rotated 90 degrees, so the values are what rotating it 90 degree will give
     let xCoord = (game.info.orientation === "horizontal") ? coords.x[R.match(/[a-zA-Z]+/,hexValue.hexes[0])[0]] : coords.y[R.match(/[a-zA-Z]+/,hexValue.hexes[0])[0]];
     let yCoord = (game.info.orientation === "horizontal") ? coords.y[R.match(/[0-9]+/,hexValue.hexes[0])[0]] : (coords.x[R.match(/[0-9]+/,hexValue.hexes[0])[0]] * -1);
-    let hexClicked = <Tile hex={hexValue} id="57" border={true} transparent={game.info.transparent} onClick={this.onClick} translateX={xCoord} translateY={yCoord} />
+    console.log('hexValue');
+    console.log(hexValue);
+    let hexClicked = <Tile id={hexValue.upgradesTo[0]} border={true} transparent={game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={hexValue} />
     this.setState({
       hexClicked: hexClicked,
       id: hexValue.hexes[0],
