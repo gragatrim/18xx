@@ -71,7 +71,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, tooltipInfo }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   if (hex === undefined || hex === null) {
@@ -189,7 +189,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
 
   return (
     <g>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY}  />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} tooltipInfo={tooltipInfo} />
 
       <HexContext.Consumer>
         {hx => (
@@ -217,7 +217,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} tooltipInfo={tooltipInfo} />}
       {outsideCityBorders}
 
       {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} />}

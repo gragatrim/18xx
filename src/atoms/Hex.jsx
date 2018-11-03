@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent, onClick, hexValue, translateX, translateY }) => {
+const Hex = ({ color, border, transparent, onClick, hexValue, translateX, translateY, id, tooltipInfo}) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
@@ -22,6 +22,9 @@ const Hex = ({ color, border, transparent, onClick, hexValue, translateX, transl
             strokeWidth="2"
             stroke={stroke}
             onClick={onClick && onClick.bind(this, hexValue)}
+            data-event={tooltipInfo && tooltipInfo['data-event']}
+            data-for={tooltipInfo && tooltipInfo['data-for']}
+            data-tip={tooltipInfo && tooltipInfo['data-tip']}
           />
         </g>
       )}

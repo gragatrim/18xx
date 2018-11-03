@@ -660,10 +660,41 @@ const game = {
     "70": 1
   },
 
+  upgradesTo: {
+    "empty": ["7", "8", "9"],
+    "city" : ["57"],
+    "singleTown" : ["3", "4", "58"],
+    "doubleTown" : ["1", "2", "55", "56", "69"],
+    "OO": ["59"],
+    "NY": ["54"],
+    "B": ["53"],
+    "7": ["18", "26", "27", "28", "29"],
+    "8": ["16", "19", "23", "24", "25", "28", "29"],
+    "9": ["18", "19", "20", "23", "24", "26", "27"],
+    "14": ["63"],
+    "15": ["63"],
+    "57": ["14", "15"],
+    "16": ["43", "70"],
+    "18": ["43"],
+    "19": ["45", "46"],
+    "20": ["44", "47"],
+    "23": ["41", "43", "45", "47"],
+    "24": ["42", "43", "46", "47"],
+    "25": ["40", "45", "46"],
+    "26": ["42", "44", "45"],
+    "27": ["41", "44", "46"],
+    "28": ["39", "43", "46", "70"],
+    "29": ["39", "43", "45", "70"],
+    "53": ["61"],
+    "54": ["62"],
+    "59": ["64", "65", "66", "67", "68"]
+  },
+
   map: {
     hexes: [
       {
         color: "offboard",
+        id: "offboard",
         labels: [
           {
             label: "Gulf"
@@ -691,6 +722,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         cities: [
           {
             name: {
@@ -717,6 +749,7 @@ const game = {
       },
       {
         color: "offboard",
+        id: "offboard",
         labels: [
           {
             label: "Chicago",
@@ -761,6 +794,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             angle: 120,
@@ -781,6 +815,7 @@ const game = {
       },
       {
         copy: "F4",
+        id: "city",
         cities: [
           {
             name: {
@@ -792,6 +827,7 @@ const game = {
       },
       {
         copy: "F4",
+        id: "city",
         cities: [
           {
             name: {
@@ -815,6 +851,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "OO",
         cities: [
           {
             angle: 65,
@@ -835,6 +872,7 @@ const game = {
       },
       {
         copy: "E5",
+        id: "OO",
         cities: [
           {
             name: {
@@ -876,6 +914,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "singleTown",
         centerTowns: [
           {
             name: {
@@ -903,6 +942,7 @@ const game = {
       },
       {
         color: "offboard",
+        id: "offboard",
         labels: [
           {
             label: "Canadian West"
@@ -931,6 +971,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         track: [
           {
             start: 2,
@@ -970,6 +1011,7 @@ const game = {
       },
       {
         color: "offboard",
+        id: "offboard",
         labels: [
           {
             label: "Deep South"
@@ -1006,6 +1048,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "OO",
         cities: [
           {
             angle: 75,
@@ -1061,6 +1104,7 @@ const game = {
             angle: 180
           }
         ],
+        id: "gray",
         cities: [
           {
             name: {
@@ -1092,6 +1136,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         cities: [
           {
             name: {
@@ -1127,6 +1172,7 @@ const game = {
             percent: 0.5
           }
         ],
+        id: "gray",
         towns: [
           {
             rotation: 60,
@@ -1188,6 +1234,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "B",
         cities: [
           {
             name: {
@@ -1215,6 +1262,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         cities: [
           {
             name: {
@@ -1239,6 +1287,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -1262,6 +1311,7 @@ const game = {
           percent: 0.5,
           angle: 180
         },
+        id: "city",
         cities: [
           {
             angle: -45,
@@ -1283,6 +1333,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         track: [
           {
             type: "sharp",
@@ -1328,6 +1379,7 @@ const game = {
             y: 57
           }
         ],
+        id: "OO",
         cities: [
           {
             x: -40,
@@ -1355,6 +1407,7 @@ const game = {
             value: 40
           }
         ],
+        id: "gray",
         cities: [
           {
             name: {
@@ -1372,6 +1425,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -1400,6 +1454,7 @@ const game = {
             value: 40
           }
         ],
+        id: "NY",
         cities: [
           {
             angle: 230,
@@ -1450,6 +1505,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         towns: [
           {
             angle: 120,
@@ -1479,6 +1535,7 @@ const game = {
       },
       {
         copy: "I19",
+        id: "gray",
         towns: [
           {
             name: {
@@ -1496,6 +1553,7 @@ const game = {
             percent: 0.5
           }
         ],
+        id: "singleTown",
         centerTowns: [
           {
             name: {
@@ -1514,6 +1572,7 @@ const game = {
             label: "B"
           }
         ],
+        id: "B",
         cities: [
           {
             name: {
@@ -1548,6 +1607,7 @@ const game = {
       },
       {
         color: "offboard",
+        id: "offboard",
         labels: [
           {
             label: "Maritime Provinces",
@@ -1581,6 +1641,7 @@ const game = {
       },
       {
         color: "gray",
+        id: "gray",
         track: [
           {
             type: "sharp",
@@ -1591,6 +1652,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "singleTown",
         centerTowns: [
           {
             name: {
@@ -1602,6 +1664,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "singleTown",
         centerTowns: [
           {
             name: {
@@ -1613,6 +1676,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "doubleTown",
         centerTowns: [
           { x: -30, name: { name: "Akron", reverse: true } },
           { x: 30, name: { name: "Canton" } }
@@ -1621,6 +1685,7 @@ const game = {
       },
       {
         copy: "G7",
+        id: "doubleTown",
         centerTowns: [
           { name: { name: "Reading" } },
           { name: { name: "Allentown" } }
@@ -1629,6 +1694,7 @@ const game = {
       },
       {
         copy: "G7",
+        id: "doubleTown",
         centerTowns: [
           { name: { name: "New Haven" } },
           { name: { name: "Hartford" } }
@@ -1637,6 +1703,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -1648,6 +1715,7 @@ const game = {
       },
       {
         copy: "H4",
+        id: "city",
         cities: [
           {
             name: {
@@ -1659,6 +1727,7 @@ const game = {
       },
       {
         copy: "H4",
+        id: "city",
         cities: [
           {
             name: {
@@ -1670,6 +1739,7 @@ const game = {
       },
       {
         copy: "H4",
+        id: "city",
         cities: [
           {
             name: {
@@ -1697,6 +1767,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         hexes: [
           "B12",
           "B14",

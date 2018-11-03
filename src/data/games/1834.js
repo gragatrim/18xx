@@ -572,10 +572,44 @@ const game = {
 
   },
 
+  upgradesTo: {
+    "empty": ["7", "8", "9"],
+    "city" : ["57"],
+    "singleTown" : ["3", "4", "58"],
+    "doubleTown" : ["1", "2", "55", "56", "69"],
+    "OO": ["59"],
+    "B": ["53"],
+    "7": ["18", "26", "27", "28", "29"],
+    "8": ["16", "19", "23", "24", "25", "28", "29"],
+    "9": ["18", "19", "20", "23", "24", "26", "27"],
+    "14": ["63"],
+    "15": ["63"],
+    "57": ["14", "15"],
+    "16": ["43", "70"],
+    "18": ["43"],
+    "19": ["45", "46"],
+    "20": ["44", "47"],
+    "23": ["41", "43", "45", "47"],
+    "24": ["42", "43", "46", "47"],
+    "25": ["40", "45", "46"],
+    "26": ["42", "44", "45"],
+    "27": ["41", "44", "46"],
+    "28": ["39", "43", "46", "70"],
+    "29": ["39", "43", "45", "70"],
+    "53": ["61"],
+    "59": ["64", "65", "66", "67", "68"],
+    "Antwerp": ["18341"],
+    "18341": ["18342"],
+    "18342": ["18343"],
+    "Luxembourg" : ["18340"],
+    "18340": ["53"],
+  },
+
   map: {
     hexes: [
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -584,16 +618,17 @@ const game = {
             companies: [{ label: "OST", color: "blue" }]
           }
         ],
-        upgradesTo: ["57"],
         hexes: ["B9"]
       },
       {
         color: "plain",
+        id: "city",
         cities: [ { name: { name: "Mons" }, companies: [{ label: "MON", color: "green" }] } ],
         hexes: ["G12"]
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -606,6 +641,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -617,6 +653,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -628,6 +665,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "city",
         cities: [
           {
             name: {
@@ -646,6 +684,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "OO",
         cities: [
           {
             angle: 120,
@@ -671,6 +710,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "OO",
         cities: [
           {
             angle: 120,
@@ -696,6 +736,7 @@ const game = {
             percent: 0.667
           }
         ],
+        id: "OO",
         cities: [
           {
             angle: 120,
@@ -721,6 +762,7 @@ const game = {
             label: "B"
           }
         ],
+        id: "Luxembourg",
         cities: [
           {
             name: {
@@ -742,6 +784,7 @@ const game = {
             label: "B"
           }
         ],
+        id: "B",
         cities: [
           {
             name: {
@@ -774,6 +817,7 @@ const game = {
             label: "B"
           }
         ],
+        id: "Antwerp",
         cities: [
           {
             name: {
@@ -789,6 +833,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "singleTown",
         centerTowns: [
           {
           }
@@ -1067,6 +1112,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "doubleTown",
         centerTowns: [
           {
             angle: 90,
@@ -1088,6 +1134,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "singleTown",
         centerTowns: [
           {
             percent: -0.4,
@@ -1109,6 +1156,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "doubleTown",
         centerTowns: [
           {
             angle: 90,
@@ -1172,7 +1220,7 @@ const game = {
       },
       {
         color: "plain",
-        upgradesTo: ["7", "8", "9"],
+        id: "empty",
         hexes: [
           "B7",
           "B11",
