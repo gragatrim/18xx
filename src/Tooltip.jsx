@@ -7,10 +7,6 @@ class ToolTip extends React.Component {
     this.state = { hover: true }
   }
 
-  handleMouseOut() {
-    this.setState({ hover: false })
-  }
-
   render() {
 
     const divStyle = {
@@ -27,6 +23,11 @@ class ToolTip extends React.Component {
     }
 
     const rotateStyle = {
+      float: 'left',
+      'marginLeft': '10px'
+    }
+
+    const wordStyle = {
       float: 'right',
       'marginLeft': '10px'
     }
@@ -40,8 +41,15 @@ class ToolTip extends React.Component {
       this.props.upgrades
     );
 
+    let currentHex = {};
+    currentHex[this.props.hexValue.currentHex.x + this.props.hexValue.currentHex.y] = {tile: this.props.upgrades[this.props.currentId],
+                                                                                       rotation: this.props.rotation,
+                                                                                       hexValue: this.props.hexValue,
+                                                                                       translateX: this.props.translateX,
+                                                                                       translateY: this.props.translateY,
+                                                                                       upgradeHexValue: this.props.upgradeHexValue};
     return (
-      <div style={divStyle} onBlur={this.handleMouseOut.bind(this)}>
+      <div style={divStyle} >
         <div style={tileStyle}>
           {tooltipUpgradeHexes}
         </div>
@@ -50,6 +58,12 @@ class ToolTip extends React.Component {
         </div>
         <div style={rotateStyle} onClick={() => {this.props.onClick(this.props.hexValue, this.props.currentId, (this.props.rotation - 60) % 360, this)}} >
           Rotate CCW
+        </div>
+        <div style={wordStyle} onClick={() => {this.props.handleCancel(this);}} >
+          Cancel
+        </div>
+        <div style={wordStyle} onClick={() => {this.props.handleSubmit(currentHex, this);}} >
+          Submit
         </div>
       </div>
     );

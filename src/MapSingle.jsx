@@ -8,7 +8,7 @@ import util from "./util";
 import * as R from "ramda";
 import { NavLink, Redirect } from "react-router-dom";
 
-const MapSingle = ({ match, onClick, hexOverlay }) => {
+const MapSingle = ({ match, onClick, hexOverlay, hexesClicked }) => {
   let game = games[match.params.game];
 
   if (match.params.variation && !Array.isArray(game.map)) {
@@ -55,6 +55,7 @@ const MapSingle = ({ match, onClick, hexOverlay }) => {
         <Svg width={totalWidth} height={totalHeight}>
           <Title game={game} variation={variation} />
           <Map game={game} variation={variation} onClick={onClick} />
+          {hexesClicked && hexesClicked}
           {hexOverlay && hexOverlay}
         </Svg>
         <div className="PrintNotes">
