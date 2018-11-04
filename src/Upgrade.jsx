@@ -21,6 +21,9 @@ class Upgrade extends React.Component {
     let game = games[this.props.match.params.game];
     let upgrades = games[this.props.match.params.game].upgradesTo;
     let upgradeTo = upgrades[hexValue.id] ? upgrades[hexValue.id][selecedHexValue] : hexValue.id;
+    if (R.isNil(upgradeTo)) {
+      return false;
+    }
     let coords = util.getCoords(game);
     //The else here means we're rotated 90 degrees, so the values are what rotating it 90 degree will give
     let xCoord = (game.info.orientation === "horizontal") ? coords.x[hexValue.currentHex.x] : coords.y[hexValue.currentHex.y];

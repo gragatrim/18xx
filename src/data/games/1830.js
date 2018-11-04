@@ -694,7 +694,6 @@ const game = {
     hexes: [
       {
         color: "offboard",
-        id: "offboard",
         labels: [
           {
             label: "Gulf"
@@ -722,7 +721,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         cities: [
           {
             name: {
@@ -749,7 +747,6 @@ const game = {
       },
       {
         color: "offboard",
-        id: "offboard",
         labels: [
           {
             label: "Chicago",
@@ -942,7 +939,6 @@ const game = {
       },
       {
         color: "offboard",
-        id: "offboard",
         labels: [
           {
             label: "Canadian West"
@@ -971,7 +967,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         track: [
           {
             start: 2,
@@ -1011,7 +1006,6 @@ const game = {
       },
       {
         color: "offboard",
-        id: "offboard",
         labels: [
           {
             label: "Deep South"
@@ -1104,7 +1098,6 @@ const game = {
             angle: 180
           }
         ],
-        id: "gray",
         cities: [
           {
             name: {
@@ -1136,7 +1129,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         cities: [
           {
             name: {
@@ -1172,7 +1164,6 @@ const game = {
             percent: 0.5
           }
         ],
-        id: "gray",
         towns: [
           {
             rotation: 60,
@@ -1262,7 +1253,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         cities: [
           {
             name: {
@@ -1333,7 +1323,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         track: [
           {
             type: "sharp",
@@ -1407,7 +1396,6 @@ const game = {
             value: 40
           }
         ],
-        id: "gray",
         cities: [
           {
             name: {
@@ -1505,7 +1493,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         towns: [
           {
             angle: 120,
@@ -1535,7 +1522,6 @@ const game = {
       },
       {
         copy: "I19",
-        id: "gray",
         towns: [
           {
             name: {
@@ -1607,7 +1593,6 @@ const game = {
       },
       {
         color: "offboard",
-        id: "offboard",
         labels: [
           {
             label: "Maritime Provinces",
@@ -1641,7 +1626,6 @@ const game = {
       },
       {
         color: "gray",
-        id: "gray",
         track: [
           {
             type: "sharp",
