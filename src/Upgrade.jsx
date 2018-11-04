@@ -21,7 +21,7 @@ class Upgrade extends React.Component {
     let game = games[this.props.match.params.game];
     let upgrades = games[this.props.match.params.game].upgradesTo;
     let upgradeTo = upgrades[hexValue.id] ? upgrades[hexValue.id][selecedHexValue] : hexValue.id;
-    if (R.isNil(upgradeTo)) {
+    if (R.isNil(upgradeTo) || upgradeTo == hexValue.id) {
       return false;
     }
     let coords = util.getCoords(game);
