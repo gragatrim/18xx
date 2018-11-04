@@ -133,6 +133,8 @@ const Map = ({ game, variation, onClick }) => {
     let resolvedHex = util.resolveHex(hex, hexes);
 
     return R.map(([x, y]) => {
+      let currentHex = game.info.orientation !== "horizontal" ? {'x': x, 'y': util.toAlpha(y)} : {'x': util.toAlpha(y), 'y': x};
+      let resolvedCurrentHex = R.merge(resolvedHex, {'currentHex': currentHex});
       let translate =
         game.info.orientation === "horizontal"
           ? `translate(${hexY(x, y) + 50} ${hexX(x, y) + 50})`
@@ -142,7 +144,7 @@ const Map = ({ game, variation, onClick }) => {
           transform={`${translate}`}
           key={`hex-${resolvedHex.variation}-${util.toAlpha(y)}${x}`}
         >
-          <Hex hex={resolvedHex} border={true} transparent={game.info.transparent} onClick={onClick} hexValue={resolvedHex} />
+          <Hex hex={resolvedCurrentHex} border={true} transparent={game.info.transparent} onClick={onClick} hexValue={resolvedCurrentHex} />
         </g>
       );
     }, R.map(util.toCoords, hex.hexes || []));

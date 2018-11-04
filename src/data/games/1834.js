@@ -1127,6 +1127,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         water: {
           cost: "$40",
         },
@@ -1149,6 +1150,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         water: {
           cost: "$20",
         },
@@ -1175,6 +1177,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$120",
           size: "medium"
@@ -1183,6 +1186,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$100",
           size: "medium"
@@ -1191,6 +1195,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           size: "medium",
           cost: "$80"
@@ -1199,6 +1204,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$60"
         },
@@ -1206,6 +1212,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$50"
         },
@@ -1213,6 +1220,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$40"
         },

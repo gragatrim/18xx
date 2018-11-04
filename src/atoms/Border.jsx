@@ -5,7 +5,7 @@ import HexContext from "../context/HexContext";
 
 const edge = 150 * 0.57735;
 
-const Border = ({ color, dashed, offset, translateX, translateY }) => {
+const Border = ({ color, dashed, offset, translateX, translateY, rotation }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   let strokeDashArray = "none";
@@ -29,7 +29,7 @@ const Border = ({ color, dashed, offset, translateX, translateY }) => {
           strokeDashoffset={strokeDashOffset}
           strokeLinecap="round"
           strokeLinejoin="round"
-          transform={`rotate(${hx.rotation}) translate(${translateX}, ${translateY})`}
+          transform={`translate(${translateX} ${translateY}) rotate(${!rotation ? hx.rotation : rotation})`}
         />
       )}
     </HexContext.Consumer>

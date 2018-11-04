@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent, onClick, hexValue, translateX, translateY, id }) => {
+const Hex = ({ color, border, transparent, onClick, hexValue, translateX, translateY, id, rotation }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
@@ -13,7 +13,7 @@ const Hex = ({ color, border, transparent, onClick, hexValue, translateX, transl
   return (
     <HexContext.Consumer>
       {hx => (
-        <g transform={`rotate(${hx.rotation}) translate(${translateX}, ${translateY})`}>
+        <g transform={`translate(${translateX}, ${translateY}) rotate(${!rotation ? hx.rotation : rotation})`}>
           <polygon
             points="-86.6025,0 -43.30125,-75 43.30125,-75 86.6025,0 43.30125,75 -43.30125,75"
             fill={fill}
@@ -21,7 +21,7 @@ const Hex = ({ color, border, transparent, onClick, hexValue, translateX, transl
             strokeLinejoin="bevel"
             strokeWidth="2"
             stroke={stroke}
-            onClick={onClick && onClick.bind(this, hexValue, 0)}
+            onClick={onClick && onClick.bind(this, hexValue, 0, 0, {})}
           />
         </g>
       )}

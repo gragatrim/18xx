@@ -71,7 +71,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   if (hex === undefined || hex === null) {
@@ -189,12 +189,12 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
 
   return (
     <g>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} />
 
       <HexContext.Consumer>
         {hx => (
-          <g clipPath="url(#hexClip)" transform={`rotate(${hx.rotation || 0}) translate(${translateX}, ${translateY})`}>
-            <g transform={`rotate(-${hx.rotation})`}>
+          <g clipPath="url(#hexClip)" transform={`translate(${translateX}, ${translateY}) rotate(${!rotation ? hx.rotation : rotation * 2})`}>
+            <g transform={`rotate(${!rotation ? hx.rotation * -1: rotation * -1})`}>
               {icons}
               {water}
               {mountain}
@@ -217,10 +217,10 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} />}
       {outsideCityBorders}
 
-      {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} />}
+      {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} rotation={rotation} />}
 
       {outsideCities}
       {offBoardRevenue}

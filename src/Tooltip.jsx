@@ -21,9 +21,19 @@ class ToolTip extends React.Component {
       top: this.props.yClick + 'px'
     }
 
+    const tileStyle = {
+      float: 'left',
+      'marginLeft': '5px'
+    }
+
+    const rotateStyle = {
+      float: 'right',
+      'marginLeft': '10px'
+    }
+
     let tooltipUpgradeHexes = R.addIndex(R.map)(
       (tile, i) => (
-        <div key={i} onClick={() => {this.props.onClick(this.props.hexValue, i, this)}} >
+        <div key={i} onClick={() => {this.props.onClick(this.props.hexValue, i, 0, this)}} >
           {tile}
         </div>
       ),
@@ -32,7 +42,15 @@ class ToolTip extends React.Component {
 
     return (
       <div style={divStyle} onBlur={this.handleMouseOut.bind(this)}>
-        {tooltipUpgradeHexes}
+        <div style={tileStyle}>
+          {tooltipUpgradeHexes}
+        </div>
+        <div style={rotateStyle} onClick={() => {this.props.onClick(this.props.hexValue, this.props.currentId, (this.props.rotation + 60) % 360, this)}} >
+          Rotate CW
+        </div>
+        <div style={rotateStyle} onClick={() => {this.props.onClick(this.props.hexValue, this.props.currentId, (this.props.rotation - 60) % 360, this)}} >
+          Rotate CCW
+        </div>
       </div>
     );
   }

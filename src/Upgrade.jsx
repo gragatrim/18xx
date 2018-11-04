@@ -17,21 +17,23 @@ class Upgrade extends React.Component {
     this.handleOnClick = this.handleOnClick.bind(this);
   }
 
-  handleOnClick(hexValue, selecedHexValue, event) {
+  handleOnClick(hexValue, selecedHexValue, rotation, hexThis, event) {
     let game = games[this.props.match.params.game];
     let upgrades = games[this.props.match.params.game].upgradesTo;
     let upgradeTo = upgrades[hexValue.id] ? upgrades[hexValue.id][selecedHexValue] : hexValue.id;
     let coords = util.getCoords(game);
     //The else here means we're rotated 90 degrees, so the values are what rotating it 90 degree will give
-    let xCoord = (game.info.orientation === "horizontal") ? coords.x[R.match(/[a-zA-Z]+/,hexValue.hexes[0])[0]] : coords.y[R.match(/[a-zA-Z]+/,hexValue.hexes[0])[0]];
-    let yCoord = (game.info.orientation === "horizontal") ? coords.y[R.match(/[0-9]+/,hexValue.hexes[0])[0]] : (coords.x[R.match(/[0-9]+/,hexValue.hexes[0])[0]] * -1);
+    let xCoord = (game.info.orientation === "horizontal") ? coords.x[hexValue.currentHex.x] : coords.y[hexValue.currentHex.y];
+    let yCoord = (game.info.orientation === "horizontal") ? coords.y[hexValue.currentHex.y] : (coords.x[hexValue.currentHex.y] * -1);
+    let xClick = R.isNil(event) ? hexThis.props.xClick : event.clientX;
+    let yClick = R.isNil(event) ? hexThis.props.yClick : event.clientY;
 
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
-    let hexClicked = <Tile id={upgradeTo} border={true} transparent={game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} />
+    let hexClicked = <Tile id={upgradeTo} border={true} transparent={game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} />
     this.setState({
       hexClicked: hexClicked,
       id: hexValue.hexes[0],
-      reactTooltip: <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={event.clientX} yClick={event.clientY} onClick={this.handleOnClick} hexValue={hexValue}/>
+      reactTooltip: <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={xClick} yClick={yClick} onClick={this.handleOnClick} hexValue={hexValue} rotation={rotation} currentId={R.invertObj(upgrades[hexValue.id])[upgradeTo]}/>
     });
   }
 
