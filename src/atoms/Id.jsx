@@ -28,7 +28,7 @@ const Id = ({ id, extra, onClick, translateX, translateY }) => {
             </text>
           </g>
           {extra && (
-            <g transform={`rotate(${hx.rotation}) translate(40 70)`}>
+            <g transform={`rotate(${hx.rotation}) translate(${translateX} ${translateY})`}>
               <text
                 fontFamily="Helvetica, Arial, sans-serif"
                 fill={colors["text"]}

@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import Hex from "./Hex";
 
-const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, tooltipInfo }) => {
+const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex }) => {
   let newHex = tiles[id];
   // If the full id doesn't exist check for only the base
   if (!newHex) {
@@ -16,7 +16,7 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, t
     return null;
   }
   let finalHex = R.merge(hex, newHex);
-  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} tooltipInfo={tooltipInfo} />;
+  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} />;
 };
 
 export default Tile;
