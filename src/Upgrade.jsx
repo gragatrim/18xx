@@ -16,14 +16,16 @@ class Upgrade extends React.Component {
       savedHexes: {},
     };
     this.game = games[this.props.match.params.game];
+    this.savedHexes = {};
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
   handleSubmit(currentHex, event) {
+    this.savedHexes = R.merge(this.savedHexes, currentHex);
     this.setState({
-      savedHexes: R.merge(this.state.savedHexes, currentHex),
+      savedHexes: this.savedHexes,
       reactTooltip: undefined
     });
   }
@@ -31,6 +33,7 @@ class Upgrade extends React.Component {
   handleCancel(event) {
     this.setState({
       hexClicked: undefined,
+      savedHexes: this.savedHexes,
       reactTooltip: undefined
     });
   }

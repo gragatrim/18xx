@@ -18,7 +18,7 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, r
 
   let tempHex = R.merge(hex, newHex);
   //This ensures that we keep any tokens in the city as it upgrades
-  let finalHex = R.mergeDeepRight(tempHex, {cities: hex.cities});
+  let finalHex = R.mergeDeepRight(tempHex, {cities: [{companies: hex.cities[0].companies}]});
   if (!R.isNil(newHex.cities) && !R.isNil(newHex.cities[0].size)) {
     //This ensures that the number of city spots is correct for the new tile we're updating to
     finalHex.cities[0].size = newHex.cities[0].size;
