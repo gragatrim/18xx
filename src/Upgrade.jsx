@@ -14,6 +14,7 @@ class Upgrade extends React.Component {
       id: 57,
       reactTooltip: '',
       savedHexes: {},
+      initialClick: true,
     };
     this.game = games[this.props.match.params.game];
     this.savedHexes = {};
@@ -26,6 +27,7 @@ class Upgrade extends React.Component {
     this.savedHexes = R.merge(this.savedHexes, currentHex);
     this.setState({
       savedHexes: this.savedHexes,
+      initialClick: true,
       reactTooltip: undefined
     });
   }
@@ -34,11 +36,15 @@ class Upgrade extends React.Component {
     this.setState({
       hexClicked: undefined,
       savedHexes: this.savedHexes,
+      initialClick: true,
       reactTooltip: undefined
     });
   }
 
   handleOnClick(hexValue, selecedHexValue, rotation, hexThis, event) {
+    if (!R.isNil(this.state.savedHexes[R.join('', R.values(hexValue.currentHex))]) && this.state.initialClick === true) {
+      rotation = this.state.savedHexes[R.join('', R.values(hexValue.currentHex))].rotation || rotation
+    }
     let upgrades = games[this.props.match.params.game].upgradesTo;
     let upgradeTo = upgrades[hexValue.id] ? upgrades[hexValue.id][selecedHexValue] : hexValue.id;
     if (R.isNil(upgradeTo) || upgradeTo === hexValue.id) {
@@ -57,6 +63,7 @@ class Upgrade extends React.Component {
     this.setState({
       hexClicked: hexClicked,
       id: hexValue.hexes[0],
+      initialClick: false,
       reactTooltip: <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={xClick} yClick={yClick} onClick={this.handleOnClick} hexValue={hexValue} rotation={rotation} currentId={R.invertObj(upgrades[hexValue.id])[upgradeTo]} handleSubmit={this.handleSubmit} translateX={xCoord} translateY={yCoord} upgradeHexValue={newHexValue} handleCancel={this.handleCancel}/>
     });
   }
