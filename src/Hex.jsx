@@ -71,7 +71,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation, game }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   if (hex === undefined || hex === null) {
@@ -193,8 +193,8 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
 
       <HexContext.Consumer>
         {hx => (
-          <g clipPath="url(#hexClip)" transform={`translate(${translateX}, ${translateY}) rotate(${!rotation ? hx.rotation : rotation * 2})`}>
-            <g transform={`rotate(${!rotation ? hx.rotation * -1: rotation * -1})`}>
+          <g clipPath="url(#hexClip)" transform={`rotate(${hx.rotation || 0}) translate(${translateX}, ${translateY}) rotate(0)`}>
+            <g transform={`rotate(${game.info.orientation === "horizontal" ? hx.rotation : hx.rotation - 90}) translate(0,0) rotate(${!rotation ? (game.info.orientation === "horizontal" ? hx.rotation * -1 : (hx.rotation * -1)) : game.info.orientation === "horizontal" ? rotation : rotation - 90 })`}>
               {icons}
               {water}
               {mountain}
@@ -217,7 +217,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} game={game} />}
       {outsideCityBorders}
 
       {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} rotation={rotation} />}

@@ -29,7 +29,7 @@ const Border = ({ color, dashed, offset, translateX, translateY, rotation }) => 
           strokeDashoffset={strokeDashOffset}
           strokeLinecap="round"
           strokeLinejoin="round"
-          transform={`translate(${translateX} ${translateY}) rotate(${!rotation ? hx.rotation : rotation})`}
+          transform={`rotate(${hx.rotation}) translate(${translateX} ${translateY}) rotate(${!rotation ? 0 : rotation})`}
         />
       )}
     </HexContext.Consumer>

@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import Hex from "./Hex";
 
-const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, rotation }) => {
+const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, rotation, game }) => {
   let newHex = tiles[id];
   // If the full id doesn't exist check for only the base
   if (!newHex) {
@@ -23,7 +23,7 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, r
     //This ensures that the number of city spots is correct for the new tile we're updating to
     finalHex.cities[0].size = newHex.cities[0].size;
   }
-  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} rotation={rotation} />;
+  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} rotation={rotation} game={game} />;
 };
 
 export default Tile;

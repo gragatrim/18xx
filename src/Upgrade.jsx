@@ -54,12 +54,12 @@ class Upgrade extends React.Component {
     let coords = util.getCoords(this.game);
     //The else here means we're rotated 90 degrees, so the values are what rotating it 90 degree will give
     let xCoord = (this.game.info.orientation === "horizontal") ? coords.x[hexValue.currentHex.x] : coords.y[hexValue.currentHex.y];
-    let yCoord = (this.game.info.orientation === "horizontal") ? coords.y[hexValue.currentHex.y] : (coords.x[hexValue.currentHex.y] * -1);
+    let yCoord = (this.game.info.orientation === "horizontal") ? coords.y[hexValue.currentHex.y] : (coords.x[hexValue.currentHex.x] * -1);
     let xClick = R.isNil(event) ? hexThis.props.xClick : event.clientX;
     let yClick = R.isNil(event) ? hexThis.props.yClick : event.clientY;
 
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
-    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} />
+    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} />
     this.setState({
       hexClicked: hexClicked,
       id: hexValue.hexes[0],
@@ -76,7 +76,7 @@ class Upgrade extends React.Component {
     } else {
         let hexesClicked = R.addIndex(R.map)(
           (tile, i) => (
-            <Tile id={tile['tile']} key={i} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={tile['translateX']} translateY={tile['translateY']} hex={tile['upgradeHexValue']} rotation={tile['rotation']} />
+            <Tile id={tile['tile']} key={i} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={tile['translateX']} translateY={tile['translateY']} hex={tile['upgradeHexValue']} rotation={tile['rotation']} game={this.game} />
           ),
           this.state.savedHexes
         );
