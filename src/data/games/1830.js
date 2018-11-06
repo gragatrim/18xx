@@ -929,6 +929,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         borders: [
           {
             side: 2,
@@ -986,6 +987,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         borders: [
           {
             side: 5,
@@ -996,6 +998,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         borders: [
           {
             side: 6,
@@ -1077,6 +1080,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         borders: [
           {
             color: "water",
@@ -1125,6 +1129,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         hexes: ["I13"]
       },
       {
@@ -1186,6 +1191,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           size: "medium",
           cost: "$120",
@@ -1333,6 +1339,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$120",
           size: "medium"
@@ -1347,6 +1354,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         companies: [
           {
             label: "M&H"
@@ -1735,6 +1743,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         water: {
           cost: "$80",
           size: "small"
@@ -1743,6 +1752,7 @@ const game = {
       },
       {
         color: "plain",
+        id: "empty",
         mountain: {
           cost: "$120",
           size: "medium"
