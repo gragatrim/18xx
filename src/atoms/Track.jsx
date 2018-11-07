@@ -90,7 +90,7 @@ const Track = ({ type, gauge, border, offset }) => {
   return (
     <HexContext.Consumer>
       {hx => (
-        <g transform={`rotate(${hx.rotation})`}>
+        <g>
           <path
             d={path}
             fill="none"

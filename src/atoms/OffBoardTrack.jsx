@@ -14,7 +14,7 @@ const OffBoardTrack = ({ border }) => {
   return (
     <HexContext.Consumer>
       {hx => (
-        <g transform={`rotate(${hx.rotation})`}>
+        <g>
           <polygon
             points={`${width},75 -${width},75 0,${end}`}
             d={path}

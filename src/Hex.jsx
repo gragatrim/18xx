@@ -71,7 +71,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation, game }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation, game, clicked }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   if (hex === undefined || hex === null) {
@@ -104,35 +104,35 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
   let offBoardTracks = R.map(makeOffBoardTrack, hex.offBoardTrack || []);
 
   let outsideCities = (
-    <Position data={R.filter(c => c.outside === true, hex.cities || [])}>
+    <Position game={game} data={R.filter(c => c.outside === true, hex.cities || [])}>
       {c => <City {...c} />}
     </Position>
   );
   let cities = (
-    <Position data={R.filter(c => c.outside !== true, hex.cities || [])}>
+    <Position game={game} clicked={clicked} data={R.filter(c => c.outside !== true, hex.cities || [])}>
       {c => <City {...c} />}
     </Position>
   );
 
   let outsideCityBorders = (
-    <Position data={R.filter(c => c.outside === true, hex.cities || [])}>
+    <Position game={game} data={R.filter(c => c.outside === true, hex.cities || [])}>
       {c => <City {...c} border={true} />}
     </Position>
   );
   let cityBorders = (
-    <Position data={R.filter(c => c.coutside !== true, hex.cities || [])}>
+    <Position game={game} clicked={clicked} data={R.filter(c => c.coutside !== true, hex.cities || [])}>
       {c => <City {...c} border={true} />}
     </Position>
   );
 
-  let towns = <Position data={hex.towns}>{t => <Town {...t} />}</Position>;
+  let towns = <Position game={game} clicked={clicked} data={hex.towns}>{t => <Town {...t} />}</Position>;
 
   let townBorders = (
-    <Position data={hex.towns}>{t => <Town {...t} border={true} />}</Position>
+    <Position game={game} clicked={clicked} data={hex.towns}>{t => <Town {...t} border={true} />}</Position>
   );
 
   let centerTowns = (
-    <Position data={hex.centerTowns}>
+    <Position game={game} data={hex.centerTowns}>
       {t => (
         <React.Fragment>
           <CenterTown border={true} />
@@ -142,62 +142,62 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
     </Position>
   );
 
-  let labels = <Position data={hex.labels}>{l => <Label {...l} />}</Position>;
-  let icons = <Position data={hex.icons}>{i => <Icon {...i} />}</Position>;
+  let labels = <Position game={game} clicked={clicked} data={hex.labels}>{l => <Label {...l} />}</Position>;
+  let icons = <Position game={game} data={hex.icons}>{i => <Icon {...i} />}</Position>;
 
-  let water = <Position data={hex.water}>{w => <Water {...w} />}</Position>;
+  let water = <Position game={game} data={hex.water}>{w => <Water {...w} />}</Position>;
 
   let mountain = (
-    <Position data={hex.mountain}>{m => <Mountain {...m} />}</Position>
+    <Position game={game} data={hex.mountain}>{m => <Mountain {...m} />}</Position>
   );
 
   let bridges = (
-    <Position data={hex.bridges}>{b => <Bridge {...b} />}</Position>
+    <Position game={game} data={hex.bridges}>{b => <Bridge {...b} />}</Position>
   );
 
   let tunnels = (
-    <Position data={hex.tunnels}>{t => <Tunnel {...t} />}</Position>
+    <Position game={game} data={hex.tunnels}>{t => <Tunnel {...t} />}</Position>
   );
 
-  let divides = <Position data={hex.divides}>{t => <Divide />}</Position>;
+  let divides = <Position game={game} data={hex.divides}>{t => <Divide />}</Position>;
 
   let offBoardRevenue = (
-    <Position data={hex.offBoardRevenue}>
+    <Position game={game} data={hex.offBoardRevenue}>
       {r => <OffBoardRevenue {...r} />}
     </Position>
   );
 
   let borders = (
-    <Position data={hex.borders} >{b => <Border {...b} />}</Position>
+    <Position game={game} data={hex.borders} >{b => <Border {...b} game={game} />}</Position>
   );
 
-  let values = <Position data={hex.values}>{v => <Value {...v} />}</Position>;
+  let values = <Position game={game} clicked={clicked} data={hex.values}>{v => <Value {...v} />}</Position>;
 
   let industries = (
-    <Position data={hex.industries}>{i => <Industry {...i} />}</Position>
+    <Position game={game} data={hex.industries}>{i => <Industry {...i} />}</Position>
   );
 
   let companies = (
-    <Position data={hex.companies}>{c => <Company {...c} />}</Position>
+    <Position game={game} data={hex.companies}>{c => <Company {...c} />}</Position>
   );
 
-  let tokens = <Position data={hex.tokens}>{t => <Token {...t} />}</Position>;
+  let tokens = <Position game={game} data={hex.tokens}>{t => <Token {...t} />}</Position>;
 
   let bonus = (
-    <Position data={hex.routeBonus}>{b => <RouteBonus {...b} />}</Position>
+    <Position game={game} data={hex.routeBonus}>{b => <RouteBonus {...b} />}</Position>
   );
 
   return (
-    <g>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} />
+    <g transform={`rotate(${!R.isNil(game) ? game.info.rotation : 0}) translate(${translateX}, ${translateY}) rotate(${rotation || 0})`}>
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} id={id} />
 
       <HexContext.Consumer>
         {hx => (
-          <g clipPath="url(#hexClip)" transform={`rotate(${hx.rotation || 0}) translate(${translateX}, ${translateY}) rotate(0)`}>
-            <g transform={`rotate(${game.info.orientation === "horizontal" ? hx.rotation : hx.rotation - 90}) translate(0,0) rotate(${!rotation ? (game.info.orientation === "horizontal" ? hx.rotation * -1 : (hx.rotation * -1)) : game.info.orientation === "horizontal" ? rotation : rotation - 90 })`}>
+          <g clipPath="url(#hexClip)" >
+            <g>
               {icons}
-              {water}
-              {mountain}
+              {!clicked && water}
+              {!clicked && mountain}
               {cityBorders}
               {townBorders}
               {tracks}
@@ -205,7 +205,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
               {values}
               {cities}
               {towns}
-              {centerTowns}
+              {!clicked && centerTowns}
               {labels}
               {tokens}
               {bonus}

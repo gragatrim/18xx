@@ -10,6 +10,7 @@ import { NavLink, Redirect } from "react-router-dom";
 
 const MapSingle = ({ match, onClick, hexOverlay, hexesClicked }) => {
   let game = games[match.params.game];
+  game.info.rotation =  game.info.orientation === "horizontal" ? 0 : 90
 
   if (match.params.variation && !Array.isArray(game.map)) {
     return <Redirect to={`/${match.params.game}/map`} />;

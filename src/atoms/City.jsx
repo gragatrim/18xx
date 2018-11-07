@@ -3,7 +3,7 @@ import { colors, textColor } from "../data";
 
 import Name from "./Name";
 
-const City = ({ size, companies, border, name, rotation }) => {
+const City = ({ size, companies, border, name}) => {
   if (size === undefined) {
     size = 1;
   }
@@ -27,7 +27,6 @@ const City = ({ size, companies, border, name, rotation }) => {
       companies[num] &&
       companies[num].label && (
         <text
-          transform={`rotate(${-rotation || 0})`}
           fill={companyTextColor(num)}
           fontFamily="Bitter"
           fontWeight="bold"

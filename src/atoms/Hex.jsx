@@ -13,7 +13,7 @@ const Hex = ({ color, border, transparent, onClick, hexValue, translateX, transl
   return (
     <HexContext.Consumer>
       {hx => (
-        <g transform={`rotate(${hx.rotation}) translate(${translateX}, ${translateY}) rotate(${rotation ? rotation : 0})`}>
+        <g>
           <polygon
             points="-86.6025,0 -43.30125,-75 43.30125,-75 86.6025,0 43.30125,75 -43.30125,75"
             fill={fill}

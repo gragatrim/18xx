@@ -6918,7 +6918,7 @@ const tiles = {
     color: "yellow",
     labels: [ { label: "B", angle: 150, percent: 0.85 } ],
     values: [ { angle: 335, percent: 0.825, value: 30 } ],
-    cities: [ { size: 1 }, { name: { name: "Luxembourg" }, } ],
+    cities: [ { size: 1 , name: { name: "Luxembourg" }, } ],
     track: [ { side: 1 } ]
   },
   "18341": {

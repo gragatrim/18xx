@@ -17,16 +17,14 @@ class Upgrade extends React.Component {
       initialClick: true,
     };
     this.game = games[this.props.match.params.game];
-    this.savedHexes = {};
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleCancel = this.handleCancel.bind(this);
   }
 
   handleSubmit(currentHex, event) {
-    this.savedHexes = R.merge(this.savedHexes, currentHex);
     this.setState({
-      savedHexes: this.savedHexes,
+      savedHexes: R.merge(this.state.savedHexes, currentHex),
       initialClick: true,
       reactTooltip: undefined
     });
@@ -35,7 +33,7 @@ class Upgrade extends React.Component {
   handleCancel(event) {
     this.setState({
       hexClicked: undefined,
-      savedHexes: this.savedHexes,
+      savedHexes: this.state.savedHexes,
       initialClick: true,
       reactTooltip: undefined
     });
@@ -59,7 +57,7 @@ class Upgrade extends React.Component {
     let yClick = R.isNil(event) ? hexThis.props.yClick : event.clientY;
 
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
-    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} />
+    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} clicked={true} />
     this.setState({
       hexClicked: hexClicked,
       id: hexValue.hexes[0],
@@ -72,16 +70,16 @@ class Upgrade extends React.Component {
     if (R.isNil(this.state.hexClicked) && R.isNil(this.state.savedHexes)) {
       return(
         <MapSingle match={this.props.match} onClick={this.handleOnClick}/>
-      )
-    } else {
-        let hexesClicked = R.addIndex(R.map)(
-          (tile, i) => (
-            <Tile id={tile['tile']} key={i} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={tile['translateX']} translateY={tile['translateY']} hex={tile['upgradeHexValue']} rotation={tile['rotation']} game={this.game} />
+    )
+  } else {
+      let hexesClicked = R.addIndex(R.map)(
+        (tile, i) => (
+          <Tile id={tile['tile']} key={i} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={tile['translateX']} translateY={tile['translateY']} hex={tile['upgradeHexValue']} rotation={tile['rotation']} game={this.game} clicked={true} />
           ),
           this.state.savedHexes
-        );
-        let map = <MapSingle key="maptime" match={this.props.match} onClick={this.handleOnClick} hexOverlay={this.state.hexClicked} hexesClicked={R.values(hexesClicked)}/>
-        let returnValues = [map, this.state.reactTooltip];
+      );
+      let map = <MapSingle key="maptime" match={this.props.match} onClick={this.handleOnClick} hexOverlay={this.state.hexClicked} hexesClicked={R.values(hexesClicked)}/>
+      let returnValues = [map, this.state.reactTooltip];
       return (
         returnValues
       );

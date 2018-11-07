@@ -40,7 +40,7 @@ const TileManifest = ({ match }) => {
     R.keys(game.tiles)
   );
 
-  let tiles = R.addIndex(R.map)((id, i) => {
+  let tilesDisplay = R.addIndex(R.map)((id, i) => {
     let [idBase, idExtra] = id.split("|");
     return (
       <div
@@ -72,7 +72,7 @@ const TileManifest = ({ match }) => {
   return (
     <div className="TileManifest">
       <div className="TileManifest--Title">{game.info.title} Tile Manifest</div>
-      {tiles}
+      {tilesDisplay}
       <div className="PrintNotes">
         Tile Manifest is meant to be printed in <b>portait</b> mode
       </div>

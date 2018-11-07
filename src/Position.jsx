@@ -1,16 +1,17 @@
 import React from "react";
 import * as R from "ramda";
 
-const Position = ({ data, children }) => {
+const Position = ({ data, children, game, clicked }) => {
   if (!data) {
     data = [];
   } else if (!Array.isArray(data)) {
     data = [data];
   }
-
   return R.map(d => {
     // Set everything to defaults of 0
-    let angle = d.angle || 0;
+    //We check for clicked to make sure we aren't going to double apply a rotation since it was already applied.
+    let gameRotation = (!R.isNil(game) ? (clicked !== true ? game.info.rotation : 0) : 0)
+    let angle = (d.angle || 0) - gameRotation;
     let rotation = d.rotate || d.rotation || 0;
     if (d.side) {
       rotation = rotation + (d.side - 1) * 60;
