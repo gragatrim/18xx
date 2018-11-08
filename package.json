@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "accounting": "^0.4.1",
+    "pouchdb": "^7.0.0",
     "ramda": "^0.25.0",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",

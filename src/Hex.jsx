@@ -189,7 +189,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
 
   return (
     <g transform={`rotate(${!R.isNil(game) ? game.info.rotation : 0}) translate(${translateX}, ${translateY}) rotate(${rotation || 0})`}>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} id={id} />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} id={id} rotation={rotation} />
 
       <HexContext.Consumer>
         {hx => (
@@ -217,10 +217,10 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} rotation={rotation} game={game} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} game={game} rotation={rotation} />}
       {outsideCityBorders}
 
-      {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} rotation={rotation} />}
+      {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} />}
 
       {outsideCities}
       {offBoardRevenue}

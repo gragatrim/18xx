@@ -21,7 +21,7 @@ const Hex = ({ color, border, transparent, onClick, hexValue, translateX, transl
             strokeLinejoin="bevel"
             strokeWidth="2"
             stroke={stroke}
-            onClick={onClick && onClick.bind(this, hexValue, 0, 0, {})}
+            onClick={onClick && onClick.bind(this, hexValue, 0, (rotation || 0), {})}
           />
         </g>
       )}
