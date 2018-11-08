@@ -6,6 +6,7 @@ import Title from "./Title";
 import HexContext from "./context/HexContext";
 import util from "./util";
 import * as R from "ramda";
+import { Redirect } from "react-router-dom";
 
 const MapSingle = ({ match, onClick, hexOverlay, hexesClicked }) => {
   let game = games[match.params.game];
