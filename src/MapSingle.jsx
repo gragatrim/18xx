@@ -59,21 +59,6 @@ const MapSingle = ({ match, onClick, hexOverlay, hexesClicked }) => {
           {hexesClicked && hexesClicked}
           {hexOverlay && hexOverlay}
         </Svg>
-        <div className="PrintNotes">
-          This map is meant to be printed in <b>{map.print || "portrait"}</b>{" "}
-          mode
-          {Array.isArray(game.map) && (
-            <ul>
-              {game.map.map((m, i) => (
-                <li key={`${match.params.game}-${i}`}>
-                  <NavLink to={`/${match.params.game}/map/${i}`}>
-                    {m.name}
-                  </NavLink>
-                </li>
-              ))}
-            </ul>
-          )}
-        </div>
       </div>
     </HexContext.Provider>
   );
