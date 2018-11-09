@@ -7,7 +7,8 @@ import Tile from "./Tile";
 import util from "./util";
 import PouchDB from "pouchdb";
 
-var db = new PouchDB('http://localhost:5984/boards');
+var localDb = new PouchDB('boards');
+var remoteDb = new PouchDB('http://localhost:5984/boards');
 
 class Upgrade extends React.Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Upgrade extends React.Component {
       reactTooltip: '',
       savedHexes: {},
       initialClick: true, };
-    db.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows}) }.bind(this));
+    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows}) }.bind(this));
     this.game = games[this.props.match.params.game];
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -33,20 +34,16 @@ class Upgrade extends React.Component {
     if (!R.isNil(currentHex[R.keys(currentHex)[0]].hexValue.rev)) {
       dbHexes._rev = currentHex[R.keys(currentHex)[0]].hexValue.rev;
     }
-    db.put(dbHexes, function callback(err, result) {
+    localDb.put(dbHexes, function callback(err, result) {
       if (err) {
-        console.log('Error');
-        console.log(err);
-        console.log('dbHexes');
-        console.log(dbHexes);
         }
     });
 
-    db.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, reactTooltip: undefined}) }.bind(this));
+    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, hexClicked: undefined, reactTooltip: undefined}) }.bind(this));
   }
 
   handleCancel(event) {
-    db.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, reactTooltip: undefined, hexClicked: undefined}) }.bind(this));
+    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, reactTooltip: undefined, hexClicked: undefined}) }.bind(this));
   }
 
   handleOnClick(hexValue, selecedHexValue, rotation, hexThis, event) {
@@ -69,8 +66,15 @@ class Upgrade extends React.Component {
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
     let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} clicked={true} rev={hexValue.rev} />
     let tooltip =  <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={xClick} yClick={yClick} onClick={this.handleOnClick} hexValue={hexValue} rotation={rotation} currentId={R.invertObj(upgrades[hexValue.id])[upgradeTo]} handleSubmit={this.handleSubmit} translateX={xCoord} translateY={yCoord} upgradeHexValue={newHexValue} handleCancel={this.handleCancel}/>;
-    db.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, id: hexValue.hexes[0], initialClick: false, reactTooltip: tooltip , hexClicked: hexClicked}) }.bind(this));
+    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, id: hexValue.hexes[0], initialClick: false, reactTooltip: tooltip , hexClicked: hexClicked}) }.bind(this));
   }
+
+  sync() {
+    let opts = {live: true};
+    localDb.replicate.to(remoteDb, opts);
+    localDb.replicate.from(remoteDb, opts);
+  }
+
 
   render() {
     if (R.isNil(this.state.hexClicked) && R.isNil(this.state.savedHexes)) {
@@ -86,6 +90,7 @@ class Upgrade extends React.Component {
       );
       let map = <MapSingle key="maptime" match={this.props.match} onClick={this.handleOnClick} hexOverlay={this.state.hexClicked} hexesClicked={R.values(hexesClicked)}/>
       let returnValues = [map, this.state.reactTooltip];
+      this.sync();
       return (
         returnValues
       );

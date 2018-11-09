@@ -18,7 +18,6 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, r
 
   //Need the clone here so that we don't end up polluting the original tiles object when setting companies below
   let tempHex = R.clone(R.merge(hex, newHex));
-  tempHex.rev = rev;
   //This ensures that we keep any tokens in the city as it upgrades
   let companyValues = !R.isNil(hex) ? R.map(R.pick(['companies']), R.values(hex.cities)) : {};
   R.addIndex(R.map) (
@@ -31,6 +30,7 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, r
     //This ensures that the number of city spots is correct for the new tile we're updating to
     finalHex.cities[0].size = newHex.cities[0].size;
   }
+  finalHex.rev = rev;
   return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} rotation={rotation} game={game} clicked={clicked}  />;
 };
 
