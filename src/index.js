@@ -5,7 +5,7 @@ import store from "./store";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
-
+require('dotenv').config()
 render(
   <Provider store={store}>
     <App />

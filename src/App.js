@@ -34,7 +34,6 @@ import Footer from "./Footer";
 import Upgrade from "./Upgrade";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
 class App extends Component {
   render() {
     let fontLinks = R.map(

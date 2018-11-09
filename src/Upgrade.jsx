@@ -6,9 +6,10 @@ import games from "./data/games";
 import Tile from "./Tile";
 import util from "./util";
 import PouchDB from "pouchdb";
+require('events').EventEmitter.defaultMaxListeners = 100;
 
 var localDb = new PouchDB('boards');
-var remoteDb = new PouchDB(process.env.remotePouchDb + '/boards');
+var remoteDb = new PouchDB(process.env.REACT_APP_remotePouchDb + '/boards');
 
 class Upgrade extends React.Component {
   constructor(props) {
