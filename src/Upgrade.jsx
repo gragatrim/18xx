@@ -20,6 +20,10 @@ class Upgrade extends React.Component {
       savedHexes: {},
       initialClick: true, };
     localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows}) }.bind(this));
+    localDb.changes({
+      since: 'now',
+      live: true
+    }).on('change', this.handleCancel.bind(this));
     this.game = games[this.props.match.params.game];
     this.handleOnClick = this.handleOnClick.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
