@@ -8,7 +8,7 @@ import util from "./util";
 import PouchDB from "pouchdb";
 
 var localDb = new PouchDB('boards');
-var remoteDb = new PouchDB('http://localhost:5984/boards');
+var remoteDb = new PouchDB(process.env.remotePouchDb + '/boards');
 
 class Upgrade extends React.Component {
   constructor(props) {
