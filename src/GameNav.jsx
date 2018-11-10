@@ -54,6 +54,9 @@ const GameNav = ({ game, ipo, paginated, paginatedMarket }) => {
         <li>
           <NavLink to={`/${game}/upgrade`}>Upgrade</NavLink>
         </li>
+        <li>
+          <NavLink to={`/${game}/newgame`}>New Game</NavLink>
+        </li>
       </ul>
     </React.Fragment>
   );

@@ -6,22 +6,24 @@ import games from "./data/games";
 import Tile from "./Tile";
 import util from "./util";
 import PouchDB from "pouchdb";
-require('events').EventEmitter.defaultMaxListeners = 100;
+import queryString from 'query-string'
 
-var localDb = new PouchDB('boards');
-var remoteDb = new PouchDB(process.env.REACT_APP_remotePouchDb + '/boards');
 
 class Upgrade extends React.Component {
   constructor(props) {
     super(props);
+    let values = queryString.parse(this.props.location.search)
+    let dbName = values.gameToLoad;
+    this.localDb = new PouchDB(dbName);
+    this.remoteDb = new PouchDB(process.env.REACT_APP_remotePouchDb + dbName);
     this.state = {
       hexClicked: null,
       id: 57,
       reactTooltip: '',
       savedHexes: {},
       initialClick: true, };
-    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows}) }.bind(this));
-    localDb.changes({
+    this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows}) }.bind(this));
+    this.localDb.changes({
       since: 'now',
       live: true
     }).on('change', this.handleCancel.bind(this));
@@ -39,16 +41,16 @@ class Upgrade extends React.Component {
     if (!R.isNil(currentHex[R.keys(currentHex)[0]].hexValue.rev)) {
       dbHexes._rev = currentHex[R.keys(currentHex)[0]].hexValue.rev;
     }
-    localDb.put(dbHexes, function callback(err, result) {
+    this.localDb.put(dbHexes, function callback(err, result) {
       if (err) {
         }
     });
 
-    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, hexClicked: undefined, reactTooltip: undefined}) }.bind(this));
+    this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, hexClicked: undefined, reactTooltip: undefined}) }.bind(this));
   }
 
   handleCancel(event) {
-    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, reactTooltip: undefined, hexClicked: undefined}) }.bind(this));
+    this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, initialClick: true, reactTooltip: undefined, hexClicked: undefined}) }.bind(this));
   }
 
   handleOnClick(hexValue, selecedHexValue, rotation, hexThis, event) {
@@ -71,13 +73,13 @@ class Upgrade extends React.Component {
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
     let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} clicked={true} rev={hexValue.rev} />
     let tooltip =  <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={xClick} yClick={yClick} onClick={this.handleOnClick} hexValue={hexValue} rotation={rotation} currentId={R.invertObj(upgrades[hexValue.id])[upgradeTo]} handleSubmit={this.handleSubmit} translateX={xCoord} translateY={yCoord} upgradeHexValue={newHexValue} handleCancel={this.handleCancel}/>;
-    localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, id: hexValue.hexes[0], initialClick: false, reactTooltip: tooltip , hexClicked: hexClicked}) }.bind(this));
+    this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, id: hexValue.hexes[0], initialClick: false, reactTooltip: tooltip , hexClicked: hexClicked}) }.bind(this));
   }
 
   sync() {
     let opts = {live: true};
-    localDb.replicate.to(remoteDb, opts);
-    localDb.replicate.from(remoteDb, opts);
+    this.localDb.replicate.to(this.remoteDb, opts);
+    this.localDb.replicate.from(this.remoteDb, opts);
   }
 
 

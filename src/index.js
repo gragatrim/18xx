@@ -5,6 +5,8 @@ import store from "./store";
 import "./index.css";
 import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
+require('events').EventEmitter.defaultMaxListeners = 100;
+
 require('dotenv').config()
 render(
   <Provider store={store}>

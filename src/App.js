@@ -29,6 +29,7 @@ import Stock from "./Stock";
 import StockPaginated from "./StockPaginated";
 
 import GameMenu from "./GameMenu";
+import NewGame from "./NewGame";
 
 import Footer from "./Footer";
 import Upgrade from "./Upgrade";
@@ -77,6 +78,7 @@ class App extends Component {
             <Route path="/:game/manifest" component={TileManifest} />
             <Route path="/:game/tokens" component={Tokens} />
             <Route path="/:game/upgrade" component={Upgrade} />
+            <Route path="/:game/newgame" component={NewGame} />
           </Switch>
 
           <Switch>
