@@ -28,8 +28,8 @@ import MapSingle from "./MapSingle";
 import Stock from "./Stock";
 import StockPaginated from "./StockPaginated";
 
-import GameMenu from "./GameMenu";
 import NewGame from "./NewGame";
+import Matches from "./Matches";
 
 import Footer from "./Footer";
 import Upgrade from "./Upgrade";
@@ -79,12 +79,9 @@ class App extends Component {
             <Route path="/:game/tokens" component={Tokens} />
             <Route path="/:game/upgrade" component={Upgrade} />
             <Route path="/:game/newgame" component={NewGame} />
+            <Route path="/matches" component={Matches} />
           </Switch>
 
-          <Switch>
-            <Route path="/tiles" component={GameMenu} />
-            <Route path="/:game/" component={GameMenu} />
-          </Switch>
           <Footer />
         </div>
       </Router>
