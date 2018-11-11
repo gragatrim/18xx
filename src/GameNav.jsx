@@ -55,7 +55,7 @@ const GameNav = ({ game, ipo, paginated, paginatedMarket }) => {
           <NavLink to={`/${game}/upgrade`}>Upgrade</NavLink>
         </li>
         <li>
-          <NavLink to={`/${game}/newgame`}>New Game</NavLink>
+          <NavLink to={`/newgame`}>New Game</NavLink>
         </li>
         <li>
           <NavLink to={`/matches`}>Matches</NavLink>

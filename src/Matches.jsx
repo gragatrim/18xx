@@ -40,14 +40,14 @@ class Matches extends React.Component {
     }
     let listOfGames = R.addIndex(R.map)(
       (match, i) => (
-        <Link style={linkStyle} key={i} to={{ pathname: "/" + match.doc.gameTitle + "/upgrade/", search: "?gameToLoad=" + match.doc.gameName}} >{match.doc.gameName}</Link>
+        <Link style={linkStyle} key={i} to={{ pathname: "/" + match.doc.gameTitle + "/upgrade/", search: "?gameToLoad=" + match.doc._id}} >{match.doc.gameName}</Link>
         ),
         this.state.matches
     );
     let returnValues = R.values(listOfGames);
     return (
-      <div>
-        <div style={linkStyle}>
+      <div style={linkStyle}>
+        <div>
           Matches
         </div>
         <div>

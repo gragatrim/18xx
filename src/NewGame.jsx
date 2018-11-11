@@ -18,11 +18,13 @@ class NewGame extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(game, gameName, submitThis, event) {
+  handleSubmit(game, gameName, user, users, submitThis, event) {
     let game_data = {
-      _id: new Date().toISOString(),
+      _id: gameName + "_" + user,
+      created: new Date().toISOString(),
       game: games[game],
       gameTitle: games[game].info.title,
+      users: R.split(',', users),
       gameName: gameName,
     };
     localDb.put(game_data, function callback(err, result) {
@@ -47,6 +49,7 @@ class NewGame extends React.Component {
   }
 
   render() {
+    this.sync();
     if (this.state.redirect === true) {
         let redirect = "/" + this.state.gameToLoad + "/upgrade?gameToLoad=" + this.state.gameNameToLoad;
         return (<Redirect to={redirect} component={Upgrade} />);
@@ -61,8 +64,9 @@ class NewGame extends React.Component {
       return (
         <div>
           Name your Game: <input id="gameName" name="gameName" type="text" />
+          Add Users: <input id="users" name="users" type="text" />
           Pick Your Game: <select id="game">{gameSelect}</select>
-          <button onClick={() => {this.handleSubmit(document.getElementById('game').value, document.getElementById('gameName').value, this);}} >
+          <button onClick={() => {this.handleSubmit(document.getElementById('game').value, document.getElementById('gameName').value, 'gragatrim', document.getElementById('users').value, this);}} >
             Submit
           </button>
         </div>

@@ -13,7 +13,7 @@ class Upgrade extends React.Component {
   constructor(props) {
     super(props);
     let values = queryString.parse(this.props.location.search)
-    let dbName = values.gameToLoad;
+    let dbName = "map_" + values.gameToLoad;
     this.localDb = new PouchDB(dbName);
     this.remoteDb = new PouchDB(process.env.REACT_APP_remotePouchDb + dbName);
     this.state = {

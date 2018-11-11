@@ -29,6 +29,7 @@ import Stock from "./Stock";
 import StockPaginated from "./StockPaginated";
 
 import NewGame from "./NewGame";
+import NewUser from "./NewUser";
 import Matches from "./Matches";
 
 import Footer from "./Footer";
@@ -78,7 +79,8 @@ class App extends Component {
             <Route path="/:game/manifest" component={TileManifest} />
             <Route path="/:game/tokens" component={Tokens} />
             <Route path="/:game/upgrade" component={Upgrade} />
-            <Route path="/:game/newgame" component={NewGame} />
+            <Route path="/newgame" component={NewGame} />
+            <Route path="/newuser" component={NewUser} />
             <Route path="/matches" component={Matches} />
           </Switch>
 
