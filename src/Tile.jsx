@@ -4,7 +4,7 @@ import * as R from "ramda";
 
 import Hex from "./Hex";
 
-const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, rotation, game, clicked, rev }) => {
+const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, rotation, game, clicked, rev, opacity }) => {
   let newHex = tiles[id];
   // If the full id doesn't exist check for only the base
   if (!newHex) {
@@ -31,7 +31,7 @@ const Tile = ({ id, border, transparent, onClick, translateX, translateY, hex, r
     finalHex.cities[0].size = newHex.cities[0].size;
   }
   finalHex.rev = rev;
-  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} rotation={rotation} game={game} clicked={clicked}  />;
+  return <Hex hex={finalHex} id={id} border={border} onClick={onClick} transparent={transparent} translateX={translateX} translateY={translateY} rotation={rotation} game={game} clicked={clicked} opacity={opacity} />;
 };
 
 export default Tile;

@@ -71,7 +71,7 @@ class Upgrade extends React.Component {
     let yClick = R.isNil(event) ? hexThis.props.yClick : event.clientY;
 
     let newHexValue = R.merge(hexValue, {id: upgradeTo});
-    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} clicked={true} rev={hexValue.rev} />
+    let hexClicked = <Tile id={upgradeTo} border={true} transparent={this.game.info.transparent} onClick={this.handleOnClick} translateX={xCoord} translateY={yCoord} hex={newHexValue} rotation={rotation} game={this.game} clicked={true} rev={hexValue.rev} opacity=".9" />
     let tooltip =  <Tooltip key="tooltipTime" upgrades={upgrades[hexValue.id]} xClick={xClick} yClick={yClick} onClick={this.handleOnClick} hexValue={hexValue} rotation={rotation} currentId={R.invertObj(upgrades[hexValue.id])[upgradeTo]} handleSubmit={this.handleSubmit} translateX={xCoord} translateY={yCoord} upgradeHexValue={newHexValue} handleCancel={this.handleCancel}/>;
     this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({savedHexes: result.rows, id: hexValue.hexes[0], initialClick: false, reactTooltip: tooltip , hexClicked: hexClicked}) }.bind(this));
   }

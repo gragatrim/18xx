@@ -4,16 +4,14 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent, onClick, hexValue, translateX, translateY, id, rotation }) => {
-  translateX = translateX || 0;
-  translateY = translateY || 0;
+const Hex = ({ color, border, transparent, onClick, hexValue, id, rotation, opacity }) => {
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
   let stroke = border ? colors["black"] : "none";
 
   return (
     <HexContext.Consumer>
       {hx => (
-        <g>
+        <g opacity={opacity || 1}>
           <polygon
             points="-86.6025,0 -43.30125,-75 43.30125,-75 86.6025,0 43.30125,75 -43.30125,75"
             fill={fill}

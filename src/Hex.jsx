@@ -71,7 +71,7 @@ const makeBorder = track => {
   );
 };
 
-const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation, game, clicked }) => {
+const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY, rotation, game, clicked, opacity }) => {
   translateX = translateX || 0;
   translateY = translateY || 0;
   if (hex === undefined || hex === null) {
@@ -189,7 +189,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
 
   return (
     <g transform={`rotate(${!R.isNil(game) ? game.info.rotation : 0}) translate(${translateX}, ${translateY}) rotate(${rotation || 0})`}>
-      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} id={id} rotation={rotation} />
+      <Hex color={hex.color} transparent={transparent} onClick={onClick} hexValue={hex} id={id} rotation={rotation} opacity={opacity} />
 
       <HexContext.Consumer>
         {hx => (
@@ -217,7 +217,7 @@ const HexTile = ({ hex, id, border, transparent, onClick, translateX, translateY
         )}
       </HexContext.Consumer>
 
-      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} game={game} rotation={rotation} />}
+      {border && <Hex border={true} onClick={onClick} hexValue={hex} translateX={translateX} translateY={translateY} id={id} game={game} rotation={rotation} opacity={opacity} />}
       {outsideCityBorders}
 
       {id && <Id id={idBase} extra={idExtra} onClick={onClick} translateX={translateX} translateY={translateY} />}
