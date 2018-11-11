@@ -14,17 +14,19 @@ class NewGame extends React.Component {
     this.state = {
       redirect: false,
     };
+    this._isMounted = false;
     this.game = games[this.props.match.params.game];
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
   handleSubmit(game, gameName, user, users, submitThis, event) {
+    let userData = R.split(',', users);
     let game_data = {
       _id: gameName + "_" + user,
       created: new Date().toISOString(),
       game: games[game],
       gameTitle: games[game].info.title,
-      users: R.split(',', users),
+      users: userData,
       gameName: gameName,
     };
     localDb.put(game_data, function callback(err, result) {
@@ -32,20 +34,54 @@ class NewGame extends React.Component {
           console.log('err');
           console.log(err);
         } else {
+          let dbName = "game_information_" + game_data._id;
+          let localGameInfoDb = new PouchDB(dbName);
+          let remoteGameInfoDb = new PouchDB(process.env.REACT_APP_remotePouchDb + dbName);
+          let numberOfPlayers = userData.length;
+          let userInfo = {};
+          R.addIndex(R.map)(
+            (user, i) => (
+                userInfo[user]= {capital : games[game].players[numberOfPlayers].capital}
+              ),
+              userData
+          );
+          let gameInfoData = {
+            _id: gameName + "_" + user,
+            created: new Date().toISOString(),
+            userData: userInfo,
+            bankSize: games[game].bank,
+          };
           submitThis.sync();
-          submitThis.setState(() => ({
-            redirect: true,
-            gameToLoad: games[game].info.title,
-            gameNameToLoad: gameName
-          }));
+          localGameInfoDb.put(gameInfoData, function callback(err, result) {
+            if (err) {
+                console.log('err');
+                console.log(err);
+              }
+          });
+          submitThis.sync(localGameInfoDb, remoteGameInfoDb);
+          if (submitThis._isMounted) {
+            submitThis.setState(() => ({ redirect: true, gameToLoad: games[game].info.title, gameNameToLoad: gameName }))
+          }
         }
     });
   }
 
-  sync() {
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
+  sync(localGameInfoDb, remoteGameInfoDb) {
     let opts = {live: true};
     localDb.replicate.to(remoteDb, opts);
     localDb.replicate.from(remoteDb, opts);
+    if (localGameInfoDb && remoteGameInfoDb) {
+      localGameInfoDb.replicate.to(remoteGameInfoDb, opts);
+      localGameInfoDb.replicate.from(remoteGameInfoDb, opts);
+    }
   }
 
   render() {

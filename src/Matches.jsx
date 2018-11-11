@@ -17,11 +17,22 @@ class Matches extends React.Component {
       since: 'now',
       live: true
     }).on('change', this.handleCancel.bind(this));
+    this._isMounted = false;
     this.handleCancel = this.handleCancel.bind(this);
   }
 
   handleCancel(event) {
-    this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({matches: result.rows}) }.bind(this));
+    if (this._isMounted) {
+      this.localDb.allDocs({ include_docs: true, attachments: true }).then(function (result) { this.setState({matches: result.rows}) }.bind(this));
+    }
+  }
+
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   sync() {

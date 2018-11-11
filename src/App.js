@@ -6,11 +6,9 @@ import * as R from "ramda";
 import { fonts } from "./data";
 
 import Tiles from "./Tiles";
-import SingleTile from "./SingleTile";
 import Atoms from "./atoms";
 import Positioning from "./Positioning";
 
-import Background from "./Background";
 import Cards from "./Cards";
 import Charters from "./Charters";
 import Minors from "./Minors";
@@ -31,6 +29,7 @@ import StockPaginated from "./StockPaginated";
 import NewGame from "./NewGame";
 import NewUser from "./NewUser";
 import Matches from "./Matches";
+import GameInformation from "./GameInformation";
 
 import Footer from "./Footer";
 import Upgrade from "./Upgrade";
@@ -58,9 +57,7 @@ class App extends Component {
             <Route exact path="/tiles" component={Tiles} />
             <Route path="/tiles/atoms" component={Atoms} />
             <Route path="/tiles/positioning" component={Positioning} />
-            <Route path="/tiles/:id" component={SingleTile} />
 
-            <Route path="/:game/background" component={Background} />
             <Route path="/:game/cards" component={Cards} />
             <Route path="/:game/charters" component={Charters} />
             <Route path="/:game/minors" component={Minors} />
@@ -82,6 +79,7 @@ class App extends Component {
             <Route path="/newgame" component={NewGame} />
             <Route path="/newuser" component={NewUser} />
             <Route path="/matches" component={Matches} />
+            <Route path="/gameinformation" component={GameInformation} />
           </Switch>
 
           <Footer />

@@ -4,6 +4,7 @@ import MapSingle from "./MapSingle";
 import Tooltip from "./Tooltip";
 import games from "./data/games";
 import Tile from "./Tile";
+import GameInformation from "./GameInformation";
 import util from "./util";
 import PouchDB from "pouchdb";
 import queryString from 'query-string'
@@ -12,8 +13,8 @@ import queryString from 'query-string'
 class Upgrade extends React.Component {
   constructor(props) {
     super(props);
-    let values = queryString.parse(this.props.location.search)
-    let dbName = "map_" + values.gameToLoad;
+    this.values = queryString.parse(this.props.location.search)
+    let dbName = "map_" + this.values.gameToLoad;
     this.localDb = new PouchDB(dbName);
     this.remoteDb = new PouchDB(process.env.REACT_APP_remotePouchDb + dbName);
     this.state = {
@@ -85,8 +86,11 @@ class Upgrade extends React.Component {
 
   render() {
     if (R.isNil(this.state.hexClicked) && R.isNil(this.state.savedHexes)) {
+      let map = <MapSingle key="map" match={this.props.match} onClick={this.handleOnClick}/>
+      let gameInfo = <GameInformation key="gameInfo" values={this.values}/>
+      let returnValues = [gameInfo,map];
       return(
-        <MapSingle match={this.props.match} onClick={this.handleOnClick}/>
+       returnValues
     )
   } else {
       let hexesClicked = R.addIndex(R.map)(
@@ -96,7 +100,8 @@ class Upgrade extends React.Component {
           this.state.savedHexes
       );
       let map = <MapSingle key="maptime" match={this.props.match} onClick={this.handleOnClick} hexOverlay={this.state.hexClicked} hexesClicked={R.values(hexesClicked)}/>
-      let returnValues = [map, this.state.reactTooltip];
+      let gameInfo = <GameInformation key="gameInfo" values={this.values}/>
+      let returnValues = [gameInfo, map, this.state.reactTooltip];
       this.sync();
       return (
         returnValues

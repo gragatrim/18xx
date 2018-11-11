@@ -18,24 +18,24 @@ const game = {
   // Need an IPO sheet
   ipo: true,
 
-  bank: "$7,500",
+  bank: "7500",
 
-  players: [
-    {
+  players: {
+    3: {
       number: 3,
       certLimit: 13,
-      capital: "$700"
+      capital: "700"
     },
-    {
+    4: {
       number: 4,
       certLimit: 10,
-      capital: "$550"
+      capital: "550"
     },
-    {
+    5: {
       number: 5,
       certLimit: 8,
-      capital: "$440"
-    }  ],
+      capital: "440"
+    }  },
 
   // Railway Companies
   companies: [
