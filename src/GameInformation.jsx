@@ -63,6 +63,18 @@ class GameInformation extends React.Component {
               {R.values(playerInfo)}
             </tbody>
           </table>
+          <table border="1">
+            <thead>
+              <tr>
+                <th>Bank</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{this.state.gameInformation[0].doc.currentBank}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       );
     }

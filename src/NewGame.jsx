@@ -36,9 +36,10 @@ class NewGame extends React.Component {
           let remoteGameInfoDb = new PouchDB(process.env.REACT_APP_remotePouchDb + dbName);
           let numberOfPlayers = userData.length;
           let userInfo = {};
+          let capitalPerPlayer = parseInt(R.replace(/[^\d]*/g, '', games[game].players[numberOfPlayers].capital), 10);
           R.addIndex(R.map)(
             (user, i) => (
-                userInfo[user]= {capital : parseInt(R.replace(/[^\d]*/g, '', games[game].players[numberOfPlayers].capital), 10)}
+                userInfo[user]= {capital : capitalPerPlayer}
               ),
               userData
           );
@@ -53,6 +54,7 @@ class NewGame extends React.Component {
             created: new Date().toISOString(),
             users: userInfo,
             bankSize: games[game].bank,
+            currentBank: games[game].bank - capitalPerPlayer * numberOfPlayers,
             privates: privateInfo,
           };
           submitThis.sync();
