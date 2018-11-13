@@ -38,13 +38,13 @@ class NewGame extends React.Component {
           let userInfo = {};
           R.addIndex(R.map)(
             (user, i) => (
-                userInfo[user]= {capital : parseInt(R.replace(/[$£]/, '', games[game].players[numberOfPlayers].capital), 10)}
+                userInfo[user]= {capital : parseInt(R.replace(/[^\d]*/g, '', games[game].players[numberOfPlayers].capital), 10)}
               ),
               userData
           );
           let privateInfo = R.addIndex(R.map)(
             (privateData, i) => (
-                {name: privateData.name, price: parseInt(R.replace(/[$£]/, '', privateData.price), 10), description: privateData.description, owner: ''}
+                {name: privateData.name, price: parseInt(R.replace(/[^\d]*/g, '', privateData.price), 10), description: privateData.description, owner: ''}
               ),
               games[game].privates
           );

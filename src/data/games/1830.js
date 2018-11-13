@@ -19,28 +19,28 @@ const game = {
 
   bank: "$12,000",
 
-  players: [
-    {
+  players: {
+    3: {
       number: 3,
       certLimit: 20,
       capital: "$800"
     },
-    {
+    4: {
       number: 4,
       certLimit: 16,
       capital: "$600"
     },
-    {
+    5: {
       number: 5,
       certLimit: 13,
       capital: "$480"
     },
-    {
+    6: {
       number: 6,
       certLimit: 11,
       capital: "$400"
     }
-  ],
+  },
 
   // Railway Companies
   companies: [
