@@ -15,7 +15,6 @@ class NewGame extends React.Component {
       redirect: false,
     };
     this._isMounted = false;
-    this.game = games[this.props.match.params.game];
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -31,8 +30,6 @@ class NewGame extends React.Component {
     };
     localDb.put(game_data, function callback(err, result) {
       if (err) {
-          console.log('err');
-          console.log(err);
         } else {
           let dbName = "game_information_" + game_data._id;
           let localGameInfoDb = new PouchDB(dbName);
@@ -41,26 +38,31 @@ class NewGame extends React.Component {
           let userInfo = {};
           R.addIndex(R.map)(
             (user, i) => (
-                userInfo[user]= {capital : games[game].players[numberOfPlayers].capital}
+                userInfo[user]= {capital : parseInt(R.replace(/[$£]/, '', games[game].players[numberOfPlayers].capital), 10)}
               ),
               userData
+          );
+          let privateInfo = R.addIndex(R.map)(
+            (privateData, i) => (
+                {name: privateData.name, price: parseInt(R.replace(/[$£]/, '', privateData.price), 10), description: privateData.description, owner: ''}
+              ),
+              games[game].privates
           );
           let gameInfoData = {
             _id: gameName + "_" + user,
             created: new Date().toISOString(),
-            userData: userInfo,
+            users: userInfo,
             bankSize: games[game].bank,
+            privates: privateInfo,
           };
           submitThis.sync();
           localGameInfoDb.put(gameInfoData, function callback(err, result) {
             if (err) {
-                console.log('err');
-                console.log(err);
               }
           });
           submitThis.sync(localGameInfoDb, remoteGameInfoDb);
           if (submitThis._isMounted) {
-            submitThis.setState(() => ({ redirect: true, gameToLoad: games[game].info.title, gameNameToLoad: gameName }))
+            submitThis.setState(() => ({ redirect: true, gameToLoad: games[game].info.title, gameNameToLoad: gameInfoData._id }))
           }
         }
     });

@@ -30,6 +30,7 @@ import NewGame from "./NewGame";
 import NewUser from "./NewUser";
 import Matches from "./Matches";
 import GameInformation from "./GameInformation";
+import Privates from "./Privates";
 
 import Footer from "./Footer";
 import Upgrade from "./Upgrade";
@@ -80,6 +81,7 @@ class App extends Component {
             <Route path="/newuser" component={NewUser} />
             <Route path="/matches" component={Matches} />
             <Route path="/gameinformation" component={GameInformation} />
+            <Route path="/privates" component={Privates} />
           </Switch>
 
           <Footer />

@@ -36,20 +36,19 @@ class GameInformation extends React.Component {
     this.sync();
     const linkStyle = {
       float: 'left',
-      clear: 'both',
       'marginLeft': '5px'
     }
-    if (R.isNil(this.state.gameInformation) || R.isEmpty(this.state.gameInformation)) {
+    if (R.isEmpty(this.state.gameInformation) === true) {
       return null;
     } else {
       let playerInfo = R.addIndex(R.map)(
         (player, i) => (
           <tr key={i}>
-            <td>{R.keys(this.state.gameInformation[0].doc.userData)[i]}</td>
+            <td>{R.keys(this.state.gameInformation[0].doc.users)[i]}</td>
             <td>{player.capital}</td>
           </tr>
           ),
-          this.state.gameInformation[0].doc.userData
+          this.state.gameInformation[0].doc.users
       );
       return (
         <div style={linkStyle}>

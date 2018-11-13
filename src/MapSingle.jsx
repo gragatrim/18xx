@@ -52,14 +52,12 @@ const MapSingle = ({ match, onClick, hexOverlay, hexesClicked }) => {
         rotation: game.info.orientation === "horizontal" ? 0 : 90
       }}
     >
-      <div className="map">
         <Svg width={totalWidth} height={totalHeight}>
           <Title game={game} variation={variation} />
           <Map game={game} variation={variation} onClick={onClick} />
           {hexesClicked && hexesClicked}
           {hexOverlay && hexOverlay}
         </Svg>
-      </div>
     </HexContext.Provider>
   );
 };
