@@ -20,6 +20,15 @@ const game = {
 
   bank: "7500",
 
+  parValues: {
+    100: '100',
+    90: '90',
+    82: '82',
+    76: '76',
+    71: '71',
+    67: '67',
+  },
+
   players: {
     3: {
       number: 3,
@@ -38,103 +47,108 @@ const game = {
     }  },
 
   // Railway Companies
-  companies: [
-    {
+  companies: {
+    LUX: {
       name: "Luxembourg Railway",
       abbrev: "LUX",
       tokens: ["Free", "$40", "$70", "$100"],
       color: "purple",
-      shares: [
-        {
+      float: "60%",
+      shares: {
+        director: {
           quantity: 1,
           label: "President Share",
           percent: 20,
           shares: 2
         },
-        {
+        normal: {
           quantity: 8,
           percent: 10,
           shares: 1
         }
-      ]
+      }
     },
-    {
+    OST: {
       name: "Ostend Railway",
       abbrev: "OST",
       tokens: ["Home", "$40", "$100"],
       color: "blue",
-      shares: [
-        {
+      float: "60%",
+      shares: {
+        director: {
           quantity: 1,
           label: "President Share",
           percent: 20,
           shares: 2
         },
-        {
+        normal: {
           quantity: 8,
           percent: 10,
           shares: 1
         }
-      ]
+      }
     },
-    {
+    ANT: {
       name: "Antwerp Railway",
       abbrev: "ANT",
       tokens: ["Home", "$100"],
       color: "yellow",
-      shares: [
-        {
+      float: "60%",
+      shares: {
+        director: {
           quantity: 1,
           label: "President Share",
           percent: 20,
           shares: 2
         },
-        {
+        normal: {
           quantity: 8,
           percent: 10,
           shares: 1
         }
-      ]
+      }
     },
-    {
+    LIE: {
       name: "Liege Railway",
       abbrev: "LIE",
       tokens: ["Home", "$40", "$100"],
       color: "red",
-      shares: [
-        {
+      float: "60%",
+      shares: {
+        director: {
           quantity: 1,
           label: "President Share",
           percent: 20,
           shares: 2
         },
-        {
+        normal: {
           quantity: 8,
           percent: 10,
           shares: 1
         }
-      ]
+      }
     },
-    {
+    MON: {
       name: "Mons Railway",
       abbrev: "MON",
       tokens: ["Home", "$40", "$100"],
       color: "green",
-      shares: [
-        {
+      float: "60%",
+      shares: {
+        director: {
           quantity: 1,
           label: "President Share",
           percent: 20,
           shares: 2
         },
-        {
+        normal: {
           quantity: 8,
           percent: 10,
           shares: 1
         }
-      ]
+      }
     }
-  ],
+  },
 
   trains: [
     {

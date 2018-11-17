@@ -31,6 +31,7 @@ import NewUser from "./NewUser";
 import Matches from "./Matches";
 import GameInformation from "./GameInformation";
 import Privates from "./Privates";
+import Companies from "./Companies";
 
 import Footer from "./Footer";
 import Upgrade from "./Upgrade";
@@ -82,6 +83,7 @@ class App extends Component {
             <Route path="/matches" component={Matches} />
             <Route path="/gameinformation" component={GameInformation} />
             <Route path="/privates" component={Privates} />
+            <Route path="/companies" component={Companies} />
           </Switch>
 
           <Footer />

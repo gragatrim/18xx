@@ -28,16 +28,24 @@ class Privates extends React.Component {
   }
 
   handlePrivatePurchase(gameInfo, privateIndex, user, submitThis, event) {
+    let tempData = {};
+    let oldData = R.forEachObjIndexed((value, key) => R.merge(tempData, {key: value}), gameInfo.doc);
     let newUserData = R.clone(gameInfo.doc.users);
     newUserData[user].privates = {index: privateIndex, name: gameInfo.doc.privates[privateIndex].name};
     newUserData[user].capital = parseInt(newUserData[user].capital, 10) - parseInt(gameInfo.doc.privates[privateIndex].price, 10);
     let newPrivateInfo = R.clone(gameInfo.doc.privates);
     newPrivateInfo[privateIndex].owner = user;
-    let updateData = {
+    let tempUpdateData = {
       _id: gameInfo.id,
       _rev: gameInfo.value.rev,
       users: newUserData,
       privates: newPrivateInfo,
+    }
+    let updateData = R.merge(oldData, tempUpdateData);
+    if (newUserData[user].capital < 0) {
+      //TODO add in some error message later on
+      alert('Not enough money to purchase');
+      return;
     }
     this.localDb.put(updateData, function callback(err, result) {
       if (!err) {
@@ -67,16 +75,21 @@ class Privates extends React.Component {
     this.sync();
     const linkStyle = {
       float: 'left',
-      clear: 'right',
       'marginLeft': '5px'
     }
     if (!R.isEmpty(this.state.gameInformation)) {
       let gameInfo = this.state.gameInformation[0];
       let userOptions = R.addIndex(R.map)(
         (user, i) => (
-            <option key={i} value={R.keys(gameInfo.doc.users)[i]}>{R.keys(gameInfo.doc.users)[i]}</option>
+            <option key={'user' + i} value={R.keys(gameInfo.doc.users)[i]}>{R.keys(gameInfo.doc.users)[i]}</option>
           ),
           gameInfo.doc.users
+      );
+      let companyOptions = R.addIndex(R.map)(
+        (company, i) => (
+            <option key={'company' + i} value={R.keys(gameInfo.doc.companies)[i]}>{R.keys(gameInfo.doc.companies)[i]}</option>
+          ),
+          gameInfo.doc.companies
       );
       let privateInfo = R.addIndex(R.map)(
         (privateData, i) => (
@@ -84,21 +97,19 @@ class Privates extends React.Component {
             <td>{privateData.name}</td>
             <td>{privateData.price}</td>
             <td>{privateData.owner}</td>
-            <td><select id={"userBuying" + i}>{R.values(userOptions)}</select></td>
-            <td><button onClick={() => {this.handlePrivatePurchase(gameInfo, i, document.getElementById('userBuying' + i).value, this)}}>Buy Private</button></td>
+            <td><select id={"userBuying" + i}>{R.concat(R.values(userOptions), R.values(companyOptions))}</select><button onClick={() => {this.handlePrivatePurchase(gameInfo, i, document.getElementById('userBuying' + i).value, this)}}>Buy Private</button></td>
           </tr>
           ),
           gameInfo.doc.privates
       );
       return (
         <div style={linkStyle}>
-          <table border="1">
+          <table className="hoverTable" border="1">
             <thead>
               <tr>
                 <th>Private Name</th>
-                <th>Private Cost</th>
-                <th>Owned By</th>
-                <th>Person Buying</th>
+                <th>Cost</th>
+                <th>Owner</th>
                 <th>Purchase</th>
               </tr>
             </thead>

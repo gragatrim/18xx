@@ -6,6 +6,7 @@ import games from "./data/games";
 import Tile from "./Tile";
 import GameInformation from "./GameInformation";
 import Privates from "./Privates";
+import Companies from "./Companies";
 import util from "./util";
 import PouchDB from "pouchdb";
 import queryString from 'query-string'
@@ -90,7 +91,8 @@ class Upgrade extends React.Component {
       let map = <MapSingle key="map" match={this.props.match} onClick={this.handleOnClick}/>
       let gameInfo = <GameInformation key="gameInfo" values={this.values}/>
       let privateInfo = <Privates key="privateinfo" values={this.values} game={this.game}/>
-      let returnValues = [gameInfo, privateInfo, map];
+      let companyInfo = <Companies key="companyinfo" values={this.values} game={this.game}/>
+      let returnValues = [gameInfo, privateInfo, companyInfo, map];
       return(
        returnValues
     )
@@ -104,7 +106,8 @@ class Upgrade extends React.Component {
       let map = <MapSingle key="maptime" match={this.props.match} onClick={this.handleOnClick} hexOverlay={this.state.hexClicked} hexesClicked={R.values(hexesClicked)}/>
       let gameInfo = <GameInformation key="gameInfo" values={this.values}/>
       let privateInfo = <Privates key="privateinfo" values={this.values} game={this.game}/>
-      let returnValues = [gameInfo, privateInfo, map, this.state.reactTooltip];
+      let companyInfo = <Companies key="companyinfo" values={this.values} game={this.game}/>
+      let returnValues = [gameInfo, privateInfo, companyInfo, map, this.state.reactTooltip];
       this.sync();
       return (
         returnValues

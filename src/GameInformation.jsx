@@ -38,6 +38,7 @@ class GameInformation extends React.Component {
       float: 'left',
       'marginLeft': '5px'
     }
+
     if (R.isEmpty(this.state.gameInformation) === true) {
       return null;
     } else {
@@ -52,7 +53,7 @@ class GameInformation extends React.Component {
       );
       return (
         <div style={linkStyle}>
-          <table border="1">
+          <table className="hoverTable" border="1">
             <thead>
               <tr>
                 <th>Player</th>

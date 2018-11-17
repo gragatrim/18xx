@@ -49,6 +49,12 @@ class NewGame extends React.Component {
               ),
               games[game].privates
           );
+          let companyInfo = R.addIndex(R.map)(
+            (companyData, i) => (
+                {name: companyData.name, tokens: companyData.tokens, shares: companyData.shares, director: ''}
+              ),
+              games[game].companies
+          );
           let gameInfoData = {
             _id: gameName + "_" + user,
             created: new Date().toISOString(),
@@ -56,6 +62,7 @@ class NewGame extends React.Component {
             bankSize: games[game].bank,
             currentBank: games[game].bank - capitalPerPlayer * numberOfPlayers,
             privates: privateInfo,
+            companies: companyInfo,
           };
           submitThis.sync();
           localGameInfoDb.put(gameInfoData, function callback(err, result) {
