@@ -39,6 +39,7 @@ class Companies extends React.Component {
     newUserData[user].capital = parseInt(newUserData[user].capital, 10) - (gameInfo.doc.companies[companyAbbreviation].director === "" ? parseInt(parValue, 10) * 2 : parseInt(parValue, 10));
     let newCompanyInfo = R.clone(gameInfo.doc.companies);
     newCompanyInfo[companyAbbreviation].director = gameInfo.doc.companies[companyAbbreviation].director === "" ? user : gameInfo.doc.companies[companyAbbreviation].director;
+    newCompanyInfo[companyAbbreviation].parPrice = gameInfo.doc.companies[companyAbbreviation].director === "" ? parseInt(parValue, 10) : newCompanyInfo[companyAbbreviation].parPrice;
     newCompanyInfo[companyAbbreviation].sharesOwned = gameInfo.doc.companies[companyAbbreviation].director === "" ? 2 : newCompanyInfo[companyAbbreviation].sharesOwned + 1;
     let tempUpdateData = {
       _id: gameInfo.id,
