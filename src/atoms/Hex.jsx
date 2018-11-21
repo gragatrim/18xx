@@ -4,9 +4,9 @@ import * as R from "ramda";
 
 import HexContext from "../context/HexContext";
 
-const Hex = ({ color, border, transparent }) => {
+const Hex = ({ color, border, transparent, outside }) => {
   let fill = (border || transparent ? "transparent" : (R.isNil(colors[color]) ? color : colors[color]));
-  let stroke = border ? colors["black"] : "none";
+  let stroke = border ? colors["black"] : (outside ? fill : "none");
 
   return (
     <HexContext.Consumer>

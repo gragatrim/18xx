@@ -187,7 +187,7 @@ const HexTile = ({ hex, id, border, transparent }) => {
 
   return (
     <g>
-      <Hex color={hex.color} transparent={transparent} />
+      <Hex color={hex.color} transparent={transparent} outside={hex.outside} />
 
       <HexContext.Consumer>
         {hx => (

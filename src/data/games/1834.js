@@ -1202,8 +1202,21 @@ const game = {
           "O10",
           "O12",
         ]
+      },
+      {
+        color: "blue",
+        outside: true,
+        hexes: [
+          "C2",
+          "C4",
+          "D1",
+          "D3",
+          "D5",
+          "E2",
+          "E4",
+          ]
       }
-    ]
+    ],
   }
 };
 

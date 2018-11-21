@@ -131,6 +131,7 @@ const Map = ({ game, variation }) => {
 
   let mapHexes = R.chain(hex => {
     let resolvedHex = util.resolveHex(hex, hexes);
+    console.log(resolvedHex.border);
 
     return R.map(([x, y]) => {
       let translate =
@@ -142,7 +143,7 @@ const Map = ({ game, variation }) => {
           transform={`${translate}`}
           key={`hex-${resolvedHex.variation}-${util.toAlpha(y)}${x}`}
         >
-          <Hex hex={resolvedHex} border={true} transparent={game.info.transparent} />
+          <Hex hex={resolvedHex} border={resolvedHex.outside === true ? false : true} transparent={game.info.transparent} />
         </g>
       );
     }, R.map(util.toCoords, hex.hexes || []));
